@@ -6,6 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="autenticacion">
     <select id="inicioSesion" resultType="modelo.pojo.Empleado" parameterType="map">
-        SELECT * WHERE nombreUsuario = #{nombreUsuario} AND contraseña = #{contraseña}
+        SELECT * FROM empleado WHERE nombreUsuario = #{nombreUsuario} AND contraseña = #{contraseña}
     </select>
 </mapper>
