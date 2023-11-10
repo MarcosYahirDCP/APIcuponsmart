@@ -1,53 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ws;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import modelo.AutenticacionDAO;
+import modelo.pojo.RespuestaLoginEscritorio;
 
-/**
- * REST Web Service
- *
- * @author yahir
- */
 @Path("autenticacion")
 public class AutenticacionWS {
 
     @Context
     private UriInfo context;
 
-    /**
-     * Creates a new instance of AutenticacionWS
-     */
     public AutenticacionWS() {
     }
 
-    /**
-     * Retrieves representation of an instance of ws.AutenticacionWS
-     * @return an instance of java.lang.String
-     */
-    @GET
+    @POST
+    @Path("iniciarSesion")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+    public RespuestaLoginEscritorio loginEscritorio(@FormParam("nombreUsuario") String nombreUsuario,
+                                  @FormParam("contraseña") String contraseña){
+        RespuestaLoginEscritorio respuestaLogin = null;
+        if(nombreUsuario!= null && !nombreUsuario.isEmpty() && contraseña!=null &&!contraseña.isEmpty()){
+            respuestaLogin = AutenticacionDAO.verificarInicioSesionEscritorio(nombreUsuario, contraseña);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return respuestaLogin;
     }
 
-    /**
-     * PUT method for updating or creating an instance of AutenticacionWS
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
-    }
+    
 }
