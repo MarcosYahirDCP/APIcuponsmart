@@ -1,6 +1,8 @@
 
 package ws;
 
+import com.google.gson.Gson;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -11,6 +13,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import modelo.AutenticacionDAO;
+import modelo.pojo.Empleado;
 import modelo.pojo.RespuestaLoginEscritorio;
 
 @Path("autenticacion")
@@ -25,13 +28,19 @@ public class AutenticacionWS {
     @POST
     @Path("iniciarSesion")
     @Produces(MediaType.APPLICATION_JSON)
-    public RespuestaLoginEscritorio loginEscritorio(@FormParam("nombreUsuario") String nombreUsuario,
-                                  @FormParam("contraseña") String contraseña){
+    @Consumes(MediaType.APPLICATION_JSON)
+    public RespuestaLoginEscritorio loginEscritorio(String jsonParam){
         RespuestaLoginEscritorio respuestaLogin = null;
-        if(nombreUsuario!= null && !nombreUsuario.isEmpty() && contraseña!=null &&!contraseña.isEmpty()){
-            respuestaLogin = AutenticacionDAO.verificarInicioSesionEscritorio(nombreUsuario, contraseña);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        try{
+            Gson gson = new Gson();
+            Empleado empleado = gson.fromJson(jsonParam, Empleado.class);
+            if(empleado.getNombreUsuario() != null && !empleado.getNombreUsuario().isEmpty() && empleado.getContraseña() !=null &&!empleado.getContraseña().isEmpty()){
+                respuestaLogin = AutenticacionDAO.verificarInicioSesionEscritorio(empleado.getNombreUsuario(), empleado.getContraseña());
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return respuestaLogin;
     }
