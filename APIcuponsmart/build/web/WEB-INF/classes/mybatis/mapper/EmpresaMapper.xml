@@ -13,4 +13,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="empresaPorRFC" resultType="modelo.pojo.Empresa" parameterType="String">
         SELECT * FROM empresa WHERE RFC = #{RFC}
     </select>
+    
+    <select id="empresaPorNombreComercial" resultType="modelo.pojo.Empresa" parameterType="String">
+        SELECT * FROM empresa WHERE nombreComercial = #{nombreComercial}
+    </select>
+    
+    <select id="empresaPorRepresentante" resultType="modelo.pojo.Empresa" parameterType="String">
+        SELECT * FROM empresa WHERE representante = #{representante}
+    </select>
+    
+    <update id="editarEmpresa" parameterType="map">
+        UPDATE empresa SET nombre = #{nombre}, nombreComercial = #{nombreComercial}, representante = #{representante}, 
+         correo = #{correo}, telefono = #{telefono}, paginaWeb = #{paginaWeb}, RFC = #{RFC}, estatus = #{estatus}
+         WHERE RFC = #{RFC} 
+    </update>
+    
+    <delete id="eliminarEmpresa" parameterType="map">
+        DELETE FROM empresa WHERE RFC = #{RFC}
+    </delete>
+    
 </mapper>
