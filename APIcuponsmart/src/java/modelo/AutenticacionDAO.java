@@ -21,7 +21,7 @@ public class AutenticacionDAO {
                 if(empleadoSesion != null){
                     respuesta.setError(false);
                     respuesta.setMensaje("Bienvenid@ "+empleadoSesion.getNombreUsuario() + " al sistema de cuponSmart");
-                    respuesta.setMedicoSesion(empleadoSesion);
+                    respuesta.setEmpleadoSesion(empleadoSesion);
                 }else{
                     respuesta.setMensaje("correo y/o contraseña incorrectas, favor de verificar sus credenciales");
                 }

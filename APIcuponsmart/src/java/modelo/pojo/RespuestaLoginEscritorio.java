@@ -24,7 +24,7 @@ public class RespuestaLoginEscritorio {
         return mensaje;
     }
 
-    public Empleado getMedicoSesion() {
+    public Empleado getEmpleadoSesion() {
         return empleadoSesion;
     }
 
@@ -36,7 +36,7 @@ public class RespuestaLoginEscritorio {
         this.mensaje = mensaje;
     }
 
-    public void setMedicoSesion(Empleado empleadoSesion) {
+    public void setEmpleadoSesion(Empleado empleadoSesion) {
         this.empleadoSesion = empleadoSesion;
     }
             
