@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="empleado">
+    <insert id="agregarEmpleado" parameterType="modelo.pojo.Empleado">
+        INSERT INTO empleado(nombre, apellidoPaterno, apellidoMaterno, CURP, correo, nombreUsuario, contraseña, idRol, idEmpresa)
+        values(#{nombre}, #{apellidoPaterno}, #{apellidoMaterno}, #{CURP}, #{correo}, #{nombreUsuario}, #{contraseña}, #{idRol}, #{idEmpresa})
+    </insert>
+    
+    <select id="verificarCurp" resultType="modelo.pojo.Empleado" parameterType="String">
+        SELECT * FROM empleado WHERE CURP = #{CURP}
+    </select>
+    
+    <select id="verificarCorreo" resultType="modelo.pojo.Empleado" parameterType="String">
+        SELECT * FROM empleado WHERE correo = #{correo}
+    </select>
+    
+    <select id="empleadoPorNombreUsuario" resultType="modelo.pojo.Empleado" parameterType="String">
+        SELECT * FROM empleado WHERE nombreUsuario = #{nombreUsuario}
+    </select>
+    
+    <select id="empleadoPorNombre" resultType="modelo.pojo.Empleado" parameterType="String">
+        SELECT * FROM empleado WHERE nombre = #{nombre}
+    </select>
+    
+    <select id="empleadoPorRol" resultType="modelo.pojo.Empleado" parameterType="int">
+        SELECT * FROM empleado WHERE idRol = #{idRol}
+    </select>
+    
+    <update id="editarEmpleado" parameterType="map">
+        UPDATE empleado SET nombre = #{nombre}, apellidoPaterno = #{apellidoPaterno}, apellidoMaterno = #{apellidoMaterno}, 
+        CURP = #{CURP}, correo = #{correo}, nombreUsuario = #{nombreUsuario}, contraseña = #{contraseña}
+        WHERE idEmpleado = #{idEmpleado}
+    </update>
+    
+    <delete id="eliminarEmpleado" parameterType="int">
+        DELETE FROM empleado WHERE idEmpleado = #{idEmpleado}
+    </delete>
+</mapper>

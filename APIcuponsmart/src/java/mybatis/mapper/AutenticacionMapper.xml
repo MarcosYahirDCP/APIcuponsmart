@@ -8,7 +8,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="inicioSesion" resultType="modelo.pojo.Empleado" parameterType="map">
         SELECT * FROM empleado WHERE nombreUsuario = #{nombreUsuario} AND contraseña = #{contraseña}
     </select>
-    <select id="inicioSesionCliente" resultType="modelo.pojo.Cliente" parameterType="map">
-        SELECT * FROM cliente WHERE correo = #{correo} AND contraseña = #{contraseña}
-    </select>
 </mapper>

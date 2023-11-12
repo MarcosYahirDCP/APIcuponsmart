@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/mybatis/mapper/EmpresaMapper.xml</file>
-            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/ws/EmpresaWS.java</file>
-            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/modelo/EmpresaDAO.java</file>
+            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/mybatis/mapper/EmpleadoMapper.xml</file>
+            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/ws/SucursalWS.java</file>
+            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/mybatis/mapper/SucursalMapper.xml</file>
+            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/ws/EmpleadoWS.java</file>
+            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/modelo/EmpleadoDAO.java</file>
+            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/modelo/SucursalDAO.java</file>
         </group>
     </open-files>
 </project-private>

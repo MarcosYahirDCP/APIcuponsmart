@@ -16,10 +16,8 @@ public class EmpresaDAO {
                 Empresa rfc = conexionBD.selectOne("empresa.empresaPorRFC", empresa.getRFC());
                 if(rfc != null){
                     msj.setMensaje("El rfc ya se encuentra registrado en una empresa");
-                    conexionBD.close();
-                    return msj;
                 }
-                int filasAfectadas = conexionBD.insert("empresa.registrarEmpresa", empresa);
+                int filasAfectadas = conexionBD.insert("empresa.agregarEmpresa", empresa);
                 conexionBD.commit();
                 if(filasAfectadas > 0){
                     msj.setError(false);

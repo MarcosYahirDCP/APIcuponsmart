@@ -5,9 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="empresa">
-    <insert id="registrarEmpresa" parameterType="modelo.pojo.Empresa">
-        INSERT INTO empresa(nombre, nombreComercial, representante, correo, telefono, paginaWeb, RFC, estatus) 
-        VALUES (#{nombre}, #{nombreComercial}, #{representante}, #{correo}, #{telefono}, #{paginaWeb}, #{RFC}, #{estatus})
+    <insert id="agregarEmpresa" parameterType="modelo.pojo.Empresa">
+        INSERT INTO empresa(nombre, nombreComercial, representante, correo, telefono, paginaWeb, RFC, estatus, idUbicacion) 
+        VALUES (#{nombre}, #{nombreComercial}, #{representante}, #{correo}, #{telefono}, #{paginaWeb}, #{RFC}, #{estatus}, #{idUbicacion})
     </insert>
     
     <select id="empresaPorRFC" resultType="modelo.pojo.Empresa" parameterType="String">
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <update id="editarEmpresa" parameterType="map">
         UPDATE empresa SET nombre = #{nombre}, nombreComercial = #{nombreComercial}, representante = #{representante}, 
-         correo = #{correo}, telefono = #{telefono}, paginaWeb = #{paginaWeb}, RFC = #{RFC}, estatus = #{estatus}
+         correo = #{correo}, telefono = #{telefono}, paginaWeb = #{paginaWeb}, estatus = #{estatus}
          WHERE RFC = #{RFC} 
     </update>
     

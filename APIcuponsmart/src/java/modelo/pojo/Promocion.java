@@ -10,7 +10,7 @@ public class Promocion {
     private String restriccion;
     private Integer numeroCupones;
     private String codigoPromocion;
-    private String status;
+    private String estatus;
     private Integer idTipoPromocion;
     private Integer idCategoria;
     private Integer idEmpresa;
@@ -18,7 +18,7 @@ public class Promocion {
     public Promocion() {
     }
 
-    public Promocion(Integer idPromocion, String nombre, String descripcion, Byte[] imagen, String inicioPromocion, String finPromocion, String restriccion, Integer numeroCupones, String codigoPromocion, String status, Integer idTipoPromocion, Integer idCategoria, Integer idEmpresa) {
+    public Promocion(Integer idPromocion, String nombre, String descripcion, Byte[] imagen, String inicioPromocion, String finPromocion, String restriccion, Integer numeroCupones, String codigoPromocion, String estatus, Integer idTipoPromocion, Integer idCategoria, Integer idEmpresa) {
         this.idPromocion = idPromocion;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -28,7 +28,7 @@ public class Promocion {
         this.restriccion = restriccion;
         this.numeroCupones = numeroCupones;
         this.codigoPromocion = codigoPromocion;
-        this.status = status;
+        this.estatus = estatus;
         this.idTipoPromocion = idTipoPromocion;
         this.idCategoria = idCategoria;
         this.idEmpresa = idEmpresa;
@@ -106,12 +106,12 @@ public class Promocion {
         this.codigoPromocion = codigoPromocion;
     }
 
-    public String getStatus() {
-        return status;
+    public String getEstatus() {
+        return estatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
     public Integer getIdTipoPromocion() {

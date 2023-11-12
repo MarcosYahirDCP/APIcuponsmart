@@ -38,7 +38,11 @@ public class SucursalWS {
         try{
             Gson gson = new Gson();
             Sucursal sucursal = gson.fromJson(jsonParam, Sucursal.class);
-            if(sucursal != null && sucursal.getIdEmpresa() != null && sucursal.getIdEmpresa() > 0){
+            if(sucursal != null && sucursal.getIdEmpresa() != null && sucursal.getIdEmpresa() > 0 && 
+                    sucursal.getNombre() != null && !sucursal.getNombre().isEmpty() &&
+                    sucursal.getTelefono() != null && !sucursal.getTelefono().isEmpty() &&
+                    sucursal.getEncargado() != null && !sucursal.getEncargado().isEmpty() &&
+                    sucursal.getIdUbicacion() != null){
                 msj = SucursalDAO.agregarSucursal(sucursal);
             }else{
                  throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -59,7 +63,11 @@ public class SucursalWS {
         try {
             Gson gson = new Gson();
             Sucursal sucursal = gson.fromJson(jsonParam, Sucursal.class);
-            if(sucursal != null && sucursal.getIdSucursal() != null && sucursal.getIdSucursal() >0){
+            if(sucursal != null && sucursal.getIdSucursal() != null && sucursal.getIdSucursal() >0 &&
+                    sucursal.getNombre() != null && !sucursal.getNombre().isEmpty() &&
+                    sucursal.getTelefono() != null && !sucursal.getTelefono().isEmpty() &&
+                    sucursal.getEncargado() != null && !sucursal.getEncargado().isEmpty() && 
+                    sucursal.getIdUbicacion() != null){
                 msj = SucursalDAO.editarSucursal(sucursal, sucursal.getIdSucursal());
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -104,4 +112,16 @@ public class SucursalWS {
         return sucursal;
     }
     
+    @GET
+    @Path("sucursalUbicacion/{ubicacion}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Sucursal sucursalPorUbicacion(@PathParam("ubicacion") Integer idUbicacion){
+        Sucursal sucursal = null;
+        if(idUbicacion != null){
+            sucursal = SucursalDAO.sucursalPorUbicacion(idUbicacion);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return sucursal;
+    }
 }

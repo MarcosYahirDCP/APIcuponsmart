@@ -98,4 +98,21 @@ public class SucursalDAO {
         }
         return sucursal;
     }
+    
+    public static Sucursal sucursalPorUbicacion(Integer idUbicacion){
+        Sucursal sucursal = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+              sucursal = conexionBD.selectOne("sucursal.sucursalPorUbicacion",idUbicacion);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return sucursal;
+    }
 }

@@ -11,12 +11,12 @@ public class Empresa {
     private String paginaWeb;
     private String RFC;
     private String estatus;
-    private Integer idUbicación;
+    private Integer idUbicacion;
 
     public Empresa() {
     }
 
-    public Empresa(Integer idEmpresa, String nombre, String nombreComercial, byte[] logo, String representante, String correo, String telefono, String paginaWeb, String RFC, String estatus, Integer idUbicación) {
+    public Empresa(Integer idEmpresa, String nombre, String nombreComercial, byte[] logo, String representante, String correo, String telefono, String paginaWeb, String RFC, String estatus, Integer idUbicacion) {
         this.idEmpresa = idEmpresa;
         this.nombre = nombre;
         this.nombreComercial = nombreComercial;
@@ -27,7 +27,7 @@ public class Empresa {
         this.paginaWeb = paginaWeb;
         this.RFC = RFC;
         this.estatus = estatus;
-        this.idUbicación = idUbicación;
+        this.idUbicacion = idUbicacion;
     }
 
     public Integer getIdEmpresa() {
@@ -110,12 +110,12 @@ public class Empresa {
         this.estatus = estatus;
     }
 
-    public Integer getIdUbicación() {
-        return idUbicación;
+    public Integer getIdUbicacion() {
+        return idUbicacion;
     }
 
-    public void setIdUbicación(Integer idUbicación) {
-        this.idUbicación = idUbicación;
+    public void setIdUbicacion(Integer idUbicacion) {
+        this.idUbicacion = idUbicacion;
     }
     
     
