@@ -23,7 +23,7 @@ public class EmpresaDAO {
                 conexionBD.commit();
                 if(filasAfectadas > 0){
                     msj.setError(false);
-                    msj.setMensaje("Empresa registrada exitosamente, " + filasAfectadas + " filas afectadas.");
+                    msj.setMensaje("Empresa registrada exitosamente");
                 }else{
                     msj.setMensaje("Error al guardar los datos, pruebe mas tarde.");
                 }

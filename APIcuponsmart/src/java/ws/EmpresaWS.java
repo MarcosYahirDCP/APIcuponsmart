@@ -35,9 +35,9 @@ public class EmpresaWS {
         Mensaje msj = new Mensaje();
         try{
             Gson gson = new Gson();
-            Empresa domicilio = gson.fromJson(jsonParam, Empresa.class);
-            if(domicilio != null){
-                msj = EmpresaDAO.registrarEmpresa(domicilio);
+            Empresa empresa = gson.fromJson(jsonParam, Empresa.class);
+            if(empresa != null){
+                msj = EmpresaDAO.registrarEmpresa(empresa);
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
