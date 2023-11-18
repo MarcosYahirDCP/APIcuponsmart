@@ -5,6 +5,7 @@ public class Cliente {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
+    private String telefono;
     private String correo;
     private String contraseña;
     private String fechaNacimiento;
@@ -13,16 +14,26 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Integer idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contraseña, String fechaNacimiento, Integer idUbicacion) {
+    public Cliente(Integer idCliente, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono,String correo, String contraseña, String fechaNacimiento, Integer idUbicacion) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
         this.correo = correo;
         this.contraseña = contraseña;
         this.fechaNacimiento = fechaNacimiento;
         this.idUbicacion = idUbicacion;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
 
     public Integer getIdCliente() {
         return idCliente;

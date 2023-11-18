@@ -45,7 +45,7 @@ public class EmpresaWS {
                     empresa.getPaginaWeb() != null && !empresa.getPaginaWeb().isEmpty() &&
                     empresa.getEstatus() != null && !empresa.getEstatus().isEmpty() &&
                     empresa.getIdUbicacion() != null){
-                msj = EmpresaDAO.registrarEmpresa(empresa);
+                msj = EmpresaDAO.agregarEmpresa(empresa);
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }

@@ -7,23 +7,24 @@ import org.apache.ibatis.session.SqlSession;
 
 public class EmpresaDAO {
     
-    public static Mensaje registrarEmpresa(Empresa empresa){
+    public static Mensaje agregarEmpresa(Empresa empresa){
         Mensaje msj = new Mensaje();
         msj.setError(true);
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
                 Empresa rfc = conexionBD.selectOne("empresa.empresaPorRFC", empresa.getRFC());
-                if(rfc != null){
-                    msj.setMensaje("El rfc ya se encuentra registrado en una empresa");
-                }
-                int filasAfectadas = conexionBD.insert("empresa.agregarEmpresa", empresa);
-                conexionBD.commit();
-                if(filasAfectadas > 0){
-                    msj.setError(false);
-                    msj.setMensaje("Empresa registrada exitosamente");
+                if(rfc == null){
+                    int filasAfectadas = conexionBD.insert("empresa.agregarEmpresa", empresa);
+                    conexionBD.commit();
+                    if(filasAfectadas > 0){
+                        msj.setError(false);
+                        msj.setMensaje("Empresa registrada exitosamente");
+                    }else{
+                        msj.setMensaje("Error al guardar los datos, pruebe mas tarde.");
+                    }
                 }else{
-                    msj.setMensaje("Error al guardar los datos, pruebe mas tarde.");
+                    msj.setMensaje("El rfc ya se encuentra registrado en una empresa");
                 }
             }catch(Exception e){
                 e.printStackTrace();

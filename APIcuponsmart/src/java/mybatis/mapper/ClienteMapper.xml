@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cliente">
+    <insert id="agregarCliente" parameterType="modelo.pojo.Cliente">
+        INSERT INTO cliente(nombre,apellidoPaterno,apellidoMaterno,telefono,correo,idUbicacion,contraseña,fechaNacimiento) 
+        VALUES(#{nombre},#{apellidoPaterno},#{apellidoMaterno},#{telefono},#{correo},#{idUbicacion},#{contraseña},#{fechaNacimiento}) 
+    </insert>
+    
+    <select id="verificarCorreo" resultType="modelo.pojo.Cliente" parameterType="String" >
+        SELECT * FROM cliente WHERE correo = #{correo}
+    </select>
+</mapper>
