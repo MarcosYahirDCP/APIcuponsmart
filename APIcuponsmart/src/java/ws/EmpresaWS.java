@@ -37,15 +37,7 @@ public class EmpresaWS {
         try{
             Gson gson = new Gson();
             Empresa empresa = gson.fromJson(jsonParam, Empresa.class);
-            if(empresa != null &&
-                    empresa.getNombre() != null && !empresa.getNombre().isEmpty() &&
-                    empresa.getNombreComercial() != null && !empresa.getNombreComercial().isEmpty() &&
-                    empresa.getRepresentante() != null && !empresa.getRepresentante().isEmpty() &&
-                    empresa.getCorreo() != null && !empresa.getCorreo().isEmpty() &&
-                    empresa.getTelefono() != null && !empresa.getTelefono().isEmpty() &&
-                    empresa.getPaginaWeb() != null && !empresa.getPaginaWeb().isEmpty() &&
-                    empresa.getEstatus() != null && !empresa.getEstatus().isEmpty() &&
-                    empresa.getIdUbicacion() != null){
+            if(empresa != null){
                 msj = EmpresaDAO.agregarEmpresa(empresa);
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -66,15 +58,7 @@ public class EmpresaWS {
          try{
             Gson gson = new Gson();
             Empresa empresa = gson.fromJson(jsonParam, Empresa.class);
-            if(empresa != null && empresa.getRFC() != null &&
-                    empresa.getNombre() != null && !empresa.getNombre().isEmpty() &&
-                    empresa.getNombreComercial() != null && !empresa.getNombreComercial().isEmpty() &&
-                    empresa.getRepresentante() != null && !empresa.getRepresentante().isEmpty() &&
-                    empresa.getCorreo() != null && !empresa.getCorreo().isEmpty() &&
-                    empresa.getTelefono() != null && !empresa.getTelefono().isEmpty() &&
-                    empresa.getPaginaWeb() != null && !empresa.getPaginaWeb().isEmpty() &&
-                    empresa.getEstatus() != null && !empresa.getEstatus().isEmpty() &&
-                    empresa.getIdUbicacion() != null){
+            if(empresa != null){
                 msj = EmpresaDAO.editarEmpresa(empresa, empresa.getRFC());
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);

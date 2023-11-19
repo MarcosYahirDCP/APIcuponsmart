@@ -8,20 +8,41 @@ public class Sucursal {
     private Integer idUbicacion;
     private Integer idEmpresa;
     private String nombreEmpresa;
+    private String calle;
+    private String codigoPostal;
 
     public Sucursal() {
     }
 
-    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa, String nombreEmpresa) {
+    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa,String calle, String codigoPostal ,String nombreEmpresa) {
         this.idSucursal = idSucursal;
         this.nombre = nombre;
         this.telefono = telefono;
         this.encargado = encargado;
         this.idUbicacion = idUbicacion;
         this.idEmpresa = idEmpresa;
+        this.calle = calle;
+        this.codigoPostal = codigoPostal;
         this.nombreEmpresa = nombreEmpresa;
     }
 
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+    
+    
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }
