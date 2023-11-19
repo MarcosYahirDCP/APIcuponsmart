@@ -7,19 +7,30 @@ public class Sucursal {
     private String encargado;
     private Integer idUbicacion;
     private Integer idEmpresa;
+    private String nombreEmpresa;
 
     public Sucursal() {
     }
 
-    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa) {
+    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa, String nombreEmpresa) {
         this.idSucursal = idSucursal;
         this.nombre = nombre;
         this.telefono = telefono;
         this.encargado = encargado;
         this.idUbicacion = idUbicacion;
         this.idEmpresa = idEmpresa;
+        this.nombreEmpresa = nombreEmpresa;
     }
 
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
+
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
+    }
+    
+    
     public Integer getIdSucursal() {
         return idSucursal;
     }

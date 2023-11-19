@@ -1,6 +1,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -142,6 +143,15 @@ public class EmpresaWS {
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
+        return empresa;
+    }
+    
+    @GET
+    @Path("listaEmpresa")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Empresa> listaEmpresa(){
+        List<Empresa> empresa = null;
+            empresa =  EmpresaDAO.listaEmpresa();
         return empresa;
     }
 }

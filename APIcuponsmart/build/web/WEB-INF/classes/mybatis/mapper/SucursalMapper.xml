@@ -17,6 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM sucursal WHERE idUbicacion = #{idUbicacion}
     </select>
     
+    <select id="sucursalPorEmpresa" resultType="modelo.pojo.Sucursal" parameterType="int">
+        SELECT s.nombre, s.telefono, s.encargado, e.nombreComercial AS nombreEmpresa FROM sucursal s JOIN empresa e ON s.idEmpresa = e.idEmpresa
+         WHERE e.idEmpresa = #{idEmpresa};
+    </select>
+    
     <delete id="eliminarSucursal" parameterType="map">
         DELETE FROM sucursal WHERE idSucursal = #{idSucursal}
     </delete>

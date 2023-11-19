@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Sucursal;
 import mybatis.MyBatisUtil;
@@ -105,6 +106,23 @@ public class SucursalDAO {
         if(conexionBD != null){
             try{
               sucursal = conexionBD.selectOne("sucursal.sucursalPorUbicacion",idUbicacion);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return sucursal;
+    }
+    
+    public static List<Sucursal> sucursalPorEmpresa(Integer idEmpresa){
+        List<Sucursal> sucursal = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+              sucursal = conexionBD.selectList("sucursal.sucursalPorEmpresa",idEmpresa);
             }catch(Exception e){
                 e.printStackTrace();
             }finally{

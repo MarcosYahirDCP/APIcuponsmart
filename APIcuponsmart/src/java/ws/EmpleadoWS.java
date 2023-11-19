@@ -1,6 +1,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -119,6 +120,19 @@ public class EmpleadoWS {
         Empleado empleado = null;
         if(nombreUsuario!= null ){
             empleado = EmpleadoDAO.empleadoPorNombreUsuario(nombreUsuario);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return empleado;
+    }
+    
+    @GET
+    @Path("listaEmpleados/{idEmpresa}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Empleado> ListaEmpleados(@PathParam("idEmpresa") Integer idEmpresa){
+        List<Empleado> empleado = null;
+        if(idEmpresa!= null && idEmpresa > 0 ){
+            empleado = EmpleadoDAO.ListaEmpleados(idEmpresa);
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.List;
 import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
 import mybatis.MyBatisUtil;
@@ -138,6 +139,23 @@ public class EmpresaDAO {
         if(conexionBD != null){
             try{
                 empresa = conexionBD.selectOne("empresa.empresaPorRepresentante", representante);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return empresa;
+    }
+    
+    public static List<Empresa> listaEmpresa(){
+        List<Empresa> empresa = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                empresa = conexionBD.selectList("empresa.listaEmpresa");
             }catch(Exception e){
                 e.printStackTrace();
             }finally{

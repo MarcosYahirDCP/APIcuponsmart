@@ -5,8 +5,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="promocion">
-    <select id="agregarPromocion" parameterType="modelo.pojo.Promocion">
-        INSERT INTO promocion(nombre,descripcion,inicioPromocion, finPromocion,restriccion,numeroCupones,codigoPromocion,estatus,idTipoPromocion,idCategoria,idEmpresa) 
+    <insert id="agregarPromocion" parameterType="modelo.pojo.Promocion">
+        INSERT INTO promocion(nombre,descripcion,inicioPromocion,finPromocion,restriccion,numeroCupones,codigoPromocion,estatus,idTipoPromocion,idCategoria,idEmpresa) 
         VALUES(#{nombre},#{descripcion},#{inicioPromocion}, #{finPromocion},#{restriccion},#{numeroCupones},#{codigoPromocion},#{estatus},#{idTipoPromocion},#{idCategoria},#{idEmpresa})
+    </insert>
+    
+    <delete id="eliminarPromocion" parameterType="int">
+        DELETE FROM promocion WHERE idPromocion = #{idPromocion}    
+    </delete>
+    
+    <update id="editarPromocion" parameterType="map">
+        UPDATE promocion SET nombre = #{nombre}, descripcion = #{descripcion}, inicioPromocion = #{inicioPromocion}, finPromocion = #{finPromocion}, restriccion = #{restriccion}, numeroCupones = #{numeroCupones},estatus = #{estatus},idTipoPromocion = #{idTipoPromocion},idCategoria = #{idCategoria},idEmpresa = #{idEmpresa}
+        WHERE idPromocion = #{idPromocion}
+    </update>
+    
+    <select id="promocionFechaInicio" resultType="modelo.pojo.Promocion" parameterType="String">
+        SELECT * FROM promocion WHERE inicioPromocion = #{inicioPromocion}
     </select>
+    
+    <select id="promocionFechaFin" resultType="modelo.pojo.Promocion" parameterType="String">
+        SELECT * FROM promocion WHERE finPromocion = #{finPromocion}
+    </select>
+    
+    <select id="promocionNombre" resultType="modelo.pojo.Promocion" parameterType="String">
+        SELECT * FROM promocion WHERE nombre = #{nombre}
+    </select>
+    
+    <select id="promocionCategoria" resultType="modelo.pojo.Promocion" parameterType="int">
+        SELECT * FROM promocion WHERE idCategoria = #{idCategoria}
+    </select>
+    
+    <select id="promociones" resultType="modelo.pojo.Promocion">
+        SELECT * FROM promocion
+    </select>
+    
+    <select id="promocionDetalle" resultType="modelo.pojo.Promocion" parameterType="int">
+        SELECT descripcion FROM promocion WHERE idPromocion = #{idPromocion}
+    </select>
+    
+    <select id="verificarCodigo" resultType="modelo.pojo.Promocion" parameterType="String" >
+        SELECT * FROM promocion WHERE codigoPromocion = #{codigoPromocion}
+    </select>
+    
 </mapper>

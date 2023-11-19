@@ -11,11 +11,12 @@ public class Empleado {
     private String contraseña;
     private Integer idRol;
     private Integer idEmpresa;
+    private String nombreRol;
 
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String correo, String nombreUsuario, String contraseña, Integer idRol, Integer idEmpresa) {
+    public Empleado(Integer idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String correo, String nombreUsuario, String contraseña, Integer idRol, Integer idEmpresa, String nombreRol) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -26,6 +27,15 @@ public class Empleado {
         this.contraseña = contraseña;
         this.idRol = idRol;
         this.idEmpresa = idEmpresa;
+        this.nombreRol = nombreRol;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
     }
 
     public Integer getIdEmpleado() {

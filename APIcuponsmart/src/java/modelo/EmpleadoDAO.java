@@ -1,6 +1,7 @@
 
 package modelo;
 
+import java.util.List;
 import modelo.pojo.Empleado;
 import modelo.pojo.Mensaje;
 import mybatis.MyBatisUtil;
@@ -127,6 +128,22 @@ public class EmpleadoDAO {
         if(conexionBD != null){
             try{
                 empleado = conexionBD.selectOne("empleado.empleadoPorNombreUsuario", nombreUsuario);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+        }
+        return empleado;
+    }
+    
+    public static List<Empleado> ListaEmpleados(Integer idEmpresa){
+        List<Empleado> empleado = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                empleado = conexionBD.selectList("empleado.listaEmpleados", idEmpresa);
             }catch(Exception e){
                 e.printStackTrace();
             }finally{

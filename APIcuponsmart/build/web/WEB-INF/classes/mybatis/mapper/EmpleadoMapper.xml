@@ -30,9 +30,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM empleado WHERE idRol = #{idRol}
     </select>
     
+    <select id="listaEmpleados" resultType="modelo.pojo.Empleado" parameterType="int">
+        SELECT e.nombre, e.apellidoPaterno, e.apellidoMaterno, e.CURP, e.correo, r.nombre AS nombreRol FROM empleado e 
+        JOIN rol r ON e.idRol = r.idRol WHERE e.idEmpresa = #{idEmpresa};
+    </select>
+    
     <update id="editarEmpleado" parameterType="map">
         UPDATE empleado SET nombre = #{nombre}, apellidoPaterno = #{apellidoPaterno}, apellidoMaterno = #{apellidoMaterno}, 
-        CURP = #{CURP}, correo = #{correo}, nombreUsuario = #{nombreUsuario}, contraseña = #{contraseña}
+        CURP = #{CURP}, correo = #{correo}, nombreUsuario = #{nombreUsuario}, contraseña = #{contraseña}, idEmpresa = #{idEmpresa}
         WHERE idEmpleado = #{idEmpleado}
     </update>
     

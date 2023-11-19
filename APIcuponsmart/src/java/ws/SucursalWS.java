@@ -1,6 +1,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -119,6 +120,19 @@ public class SucursalWS {
         Sucursal sucursal = null;
         if(idUbicacion != null){
             sucursal = SucursalDAO.sucursalPorUbicacion(idUbicacion);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return sucursal;
+    }
+    
+    @GET
+    @Path("sucursalEmpresa/{idEmpresa}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Sucursal> sucursalPorEmpresa(@PathParam("idEmpresa") Integer idEmpresa){
+        List<Sucursal> sucursal = null;
+        if(idEmpresa != null && idEmpresa > 0){
+            sucursal = SucursalDAO.sucursalPorEmpresa(idEmpresa);
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }

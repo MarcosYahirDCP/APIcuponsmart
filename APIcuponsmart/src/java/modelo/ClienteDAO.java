@@ -35,4 +35,29 @@ public class ClienteDAO {
         }
         return msj;
     }
+    
+    public static Mensaje editarCliente(Cliente cliente){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                int numeroFilasAfectadas = conexionBD.update("cliente.editarCliente",cliente);
+                conexionBD.commit();
+                if(numeroFilasAfectadas > 0 ){
+                    msj.setError(false);
+                    msj.setMensaje(cliente.getNombre()+" se ha editado correctamente la información");
+                }else{
+                    msj.setMensaje("Error al enviar los datos");
+                }
+            }catch(Exception e){
+                msj.setMensaje("Error: "+ e);
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            msj.setMensaje("Error en la conexión, intentelo más tarde");
+        }
+        return msj;
+    }
 }
