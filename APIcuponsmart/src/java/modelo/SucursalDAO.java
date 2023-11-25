@@ -39,6 +39,8 @@ public class SucursalDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
+                Sucursal sucursalExiste = conexionBD.selectOne("sucursal.sucursalPorId", idSucursal);
+                if(sucursalExiste != null){
                 int numeroFilasAfectadas = conexionBD.update("sucursal.editarSucursal", sucursal);
                 conexionBD.commit();
                 if(numeroFilasAfectadas > 0){
@@ -46,6 +48,9 @@ public class SucursalDAO {
                     msj.setMensaje("Sucursal editada correctamente");
                 }else{
                     msj.setMensaje("Error al editar la sucursal");
+                }
+                }else{
+                    msj.setMensaje("La sucursal con " + idSucursal + " no existe");
                 }
             }catch(Exception e){
                 msj.setMensaje("Error al procesar los datos " + e);
@@ -106,6 +111,23 @@ public class SucursalDAO {
         if(conexionBD != null){
             try{
               sucursal = conexionBD.selectOne("sucursal.sucursalPorUbicacion",idUbicacion);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return sucursal;
+    }
+    
+    public static Sucursal sucursalPorId(Integer idSucursal){
+        Sucursal sucursal = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+              sucursal = conexionBD.selectOne("sucursal.sucursalPorId",idSucursal);
             }catch(Exception e){
                 e.printStackTrace();
             }finally{

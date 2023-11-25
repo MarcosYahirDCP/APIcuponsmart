@@ -116,6 +116,23 @@ public class EmpresaDAO {
         return empresa;
     }
     
+    public static Empresa empresaPorId(Integer idEmpresa){
+        Empresa empresa = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                empresa = conexionBD.selectOne("empresa.empresaPorId", idEmpresa);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return empresa;
+    }
+    
     public static Empresa empresaPorNombreComercial(String nombreComercial){
         Empresa empresa = null;
         SqlSession conexionBD = MyBatisUtil.getSession();

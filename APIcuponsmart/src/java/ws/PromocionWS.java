@@ -142,6 +142,19 @@ public class PromocionWS {
     }
     
     @GET
+    @Path("promocionPorId/{idPromocion}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Promocion promocionPorId(@PathParam("idPromocion") Integer idPromocion){
+        Promocion promocion = null;
+        if(idPromocion != null && idPromocion > 0){
+            promocion = PromocionDAO.promocionPorId(idPromocion);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return promocion;
+    }
+    
+    @GET
     @Path("promociones")
     @Consumes(MediaType.APPLICATION_JSON)
     public List<Promocion> listarPromociones(){

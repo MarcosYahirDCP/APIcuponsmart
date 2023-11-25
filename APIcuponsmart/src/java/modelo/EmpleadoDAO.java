@@ -46,13 +46,18 @@ public class EmpleadoDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
-                int numeroFilasAfectadas = conexionBD.update("empleado.editarEmpleado", empleado);
-                conexionBD.commit();
-                if(numeroFilasAfectadas > 0){
-                    msj.setError(false);
-                    msj.setMensaje("Usuario editado con exito");
+                Empleado empleadoExiste = conexionBD.selectOne("empleado.empleadoPorId", empleado.getIdEmpleado());
+                if(empleadoExiste != null){
+                    int numeroFilasAfectadas = conexionBD.update("empleado.editarEmpleado", empleado);
+                    conexionBD.commit();
+                    if(numeroFilasAfectadas > 0){
+                        msj.setError(false);
+                        msj.setMensaje("Empleado editado con exito");
+                    }else{
+                        msj.setMensaje("Error al enviar los datos");
+                    }
                 }else{
-                    msj.setMensaje("Error al enviar los datos");
+                    msj.setMensaje("El empleado con id " +empleado.getIdEmpleado() + " No existe");
                 }
             }catch(Exception e){
                 msj.setMensaje("Error al encair los datos " + e);
@@ -144,6 +149,22 @@ public class EmpleadoDAO {
         if(conexionBD != null){
             try{
                 empleado = conexionBD.selectList("empleado.listaEmpleados", idEmpresa);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+        }
+        return empleado;
+    }
+    
+    public static Empleado empleadoPorId(Integer idEmpleado){
+        Empleado empleado = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                empleado = conexionBD.selectOne("empleado.empleadoPorId", idEmpleado);
             }catch(Exception e){
                 e.printStackTrace();
             }finally{

@@ -14,16 +14,16 @@ public class ClienteDAO {
             try{
                 Cliente correo = conexionBD.selectOne("cliente.verificarCorreo", cliente.getCorreo());
                 if (correo == null){
-                int numeroFilasAfectadas = conexionBD.insert("cliente.agregarCliente", cliente);
-                conexionBD.commit();
-                if(numeroFilasAfectadas > 0 ){
-                    msj.setError(false);
-                    msj.setMensaje(cliente.getNombre()+" se ha registrado correctamente");
-                }else{
-                    msj.setMensaje("Error al enviar los datos");
-                }
-                }else{
-                    msj.setMensaje("El correo ya se encuentra registrado");
+                    int numeroFilasAfectadas = conexionBD.insert("cliente.agregarCliente", cliente);
+                    conexionBD.commit();
+                    if(numeroFilasAfectadas > 0 ){
+                        msj.setError(false);
+                        msj.setMensaje(cliente.getNombre()+" se ha registrado correctamente");
+                    }else{
+                        msj.setMensaje("Error al enviar los datos");
+                    }
+                    }else{
+                        msj.setMensaje("El correo ya se encuentra registrado");
                 }
             }catch(Exception e){
                 msj.setMensaje("Error " +e);
@@ -42,6 +42,8 @@ public class ClienteDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
+                Cliente clienteExiste = conexionBD.selectOne("clientePorId", cliente.getIdCliente());
+                if(clienteExiste != null){
                 int numeroFilasAfectadas = conexionBD.update("cliente.editarCliente",cliente);
                 conexionBD.commit();
                 if(numeroFilasAfectadas > 0 ){
@@ -49,6 +51,9 @@ public class ClienteDAO {
                     msj.setMensaje(cliente.getNombre()+" se ha editado correctamente la información");
                 }else{
                     msj.setMensaje("Error al enviar los datos");
+                }
+                }else{
+                    msj.setMensaje("El cliente con id " +cliente.getIdCliente() + " No existe");
                 }
             }catch(Exception e){
                 msj.setMensaje("Error: "+ e);
@@ -59,5 +64,20 @@ public class ClienteDAO {
             msj.setMensaje("Error en la conexión, intentelo más tarde");
         }
         return msj;
+    }
+    
+    public static Cliente clientePorId(Integer idCliente){
+        Cliente cliente = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+         try{
+             cliente = conexionBD.selectOne("cliente.clientePorId", idCliente);
+         }catch (Exception e){
+             e.printStackTrace();
+         }finally{
+             conexionBD.close();
+         }   
+        }
+        return cliente;
     }
 }

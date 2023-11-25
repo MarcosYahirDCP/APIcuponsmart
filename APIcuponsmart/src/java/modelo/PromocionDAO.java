@@ -44,13 +44,18 @@ public class PromocionDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
-                int numeroFilasAfectadas = conexionBD.update("promocion.editarPromocion", promocion);
-                conexionBD.commit();
-                if(numeroFilasAfectadas > 0){
-                    msj.setError(false);
-                    msj.setMensaje("Promocion editada correctamente");
+                Promocion promocionExiste = conexionBD.selectOne("promocion.promocionPorId", promocion.getIdPromocion());
+                if(promocionExiste != null){
+                    int numeroFilasAfectadas = conexionBD.update("promocion.editarPromocion", promocion);
+                    conexionBD.commit();
+                    if(numeroFilasAfectadas > 0){
+                        msj.setError(false);
+                        msj.setMensaje("Promocion editada correctamente");
+                    }else{
+                        msj.setMensaje("Error al enviar los datos");
+                    }
                 }else{
-                    msj.setMensaje("Error al enviar los datos");
+                    msj.setMensaje("La promocion "+ promocion.getIdPromocion() +" no existe");
                 }
             }catch(Exception e){
                 msj.setMensaje("error "+e);
@@ -111,6 +116,24 @@ public class PromocionDAO {
         if(conexionBD != null){
             try{
                 promocion = conexionBD.selectOne("promocion.promocionDetalle", idPromocion);
+                conexionBD.commit();
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return promocion;
+    }
+    
+    public static Promocion promocionPorId(Integer idPromocion){
+        Promocion promocion = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                promocion = conexionBD.selectOne("promocion.promocionPorId", idPromocion);
                 conexionBD.commit();
             }catch(Exception e){
                 e.printStackTrace();

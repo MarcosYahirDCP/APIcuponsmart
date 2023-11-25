@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="promociones" resultType="modelo.pojo.Promocion">
-        SELECT * FROM promocion
+        SELECT nombre,descripcion,inicioPromocion,finPromocion,restriccion,idTipoPromocion,numeroCupones,estatus,idEmpresa FROM promocion
     </select>
     
     <select id="promocionDetalle" resultType="modelo.pojo.Promocion" parameterType="int">
@@ -45,6 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="verificarCodigo" resultType="modelo.pojo.Promocion" parameterType="String" >
         SELECT * FROM promocion WHERE codigoPromocion = #{codigoPromocion}
+    </select>
+    
+    <select id="promocionPorId" resultType="modelo.pojo.Promocion" parameterType="int" >
+        SELECT * FROM promocion WHERE idPromocion = #{idPromocion}
     </select>
     
 </mapper>

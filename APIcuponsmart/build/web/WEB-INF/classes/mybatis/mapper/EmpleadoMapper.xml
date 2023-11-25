@@ -10,8 +10,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values(#{nombre}, #{apellidoPaterno}, #{apellidoMaterno}, #{CURP}, #{correo}, #{nombreUsuario}, #{contraseña}, #{idRol}, #{idEmpresa})
     </insert>
     
-    <select id="verificarCurp" resultType="modelo.pojo.Empleado" parameterType="String">
-        SELECT * FROM empleado WHERE CURP = #{CURP}
+    
+    <select id="empleadoPorId" resultType="modelo.pojo.Empleado" parameterType="int">
+        SELECT * FROM empleado WHERE idEmpleado = #{idEmpleado}
     </select>
     
     <select id="verificarCorreo" resultType="modelo.pojo.Empleado" parameterType="String">

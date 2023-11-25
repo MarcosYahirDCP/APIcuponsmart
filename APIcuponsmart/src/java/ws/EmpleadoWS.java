@@ -138,4 +138,17 @@ public class EmpleadoWS {
         }
         return empleado;
     }
+    
+    @GET
+    @Path("empleadoPorId/{idEmpleado}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Empleado empleadoPorId(@PathParam("idEmpleado") Integer idEmpleado){
+        Empleado empleado = null;
+        if(idEmpleado!= null && idEmpleado > 0 ){
+            empleado = EmpleadoDAO.empleadoPorId(idEmpleado);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return empleado;
+    }
 }

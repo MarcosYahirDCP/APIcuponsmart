@@ -105,6 +105,19 @@ public class EmpresaWS {
     }
     
     @GET
+    @Path("empresaPorId/{idEmpresa}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Empresa empresaPorId(@PathParam("idEmpresa") Integer idEmpresa){
+        Empresa empresa = null;
+        if(idEmpresa != null && idEmpresa > 0){
+            empresa =  EmpresaDAO.empresaPorId(idEmpresa);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return empresa;
+    }
+    
+    @GET
     @Path("empresaNombreComercial/{nombreComercial}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Empresa empresaPorNombreComercial(@PathParam("nombreComercial") String nombreComercial){

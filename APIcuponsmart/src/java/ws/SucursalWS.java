@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -133,6 +132,19 @@ public class SucursalWS {
         List<Sucursal> sucursal = null;
         if(idEmpresa != null && idEmpresa > 0){
             sucursal = SucursalDAO.sucursalPorEmpresa(idEmpresa);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return sucursal;
+    }
+    
+    @GET
+    @Path("sucursalPorId/{idSucursal}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Sucursal sucursalPorId(@PathParam("idSucursal") Integer idSucursal){
+        Sucursal sucursal = null;
+        if(idSucursal != null && idSucursal > 0){
+            sucursal = SucursalDAO.sucursalPorId(idSucursal);
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
