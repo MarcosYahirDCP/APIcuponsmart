@@ -51,4 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM promocion WHERE idPromocion = #{idPromocion}
     </select>
     
+    <insert id="promocionPorSucursal" parameterType="modelo.pojo.PromocionSucursal">
+        INSERT INTO promocionsucursal VALUES (#{idPromocion},#{idSucursal})
+    </insert>
+    
 </mapper>

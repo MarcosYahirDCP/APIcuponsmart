@@ -3,6 +3,8 @@ package modelo;
 import java.util.List;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.PromocionSucursal;
+import modelo.pojo.Sucursal;
 import mybatis.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 
@@ -198,5 +200,36 @@ public class PromocionDAO {
             
         }
         return promocion;
+    }
+    
+    public static Mensaje promocionPorSucursal(PromocionSucursal promocion){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+               Promocion promocionExiste = conexionBD.selectOne("promocion.promocionPorId", promocion.getIdPromocion());
+               Sucursal sucursalExiste = conexionBD.selectOne("sucursal.sucursalPorId",promocion.getIdSucursal());
+               if(promocionExiste != null && sucursalExiste != null){
+                   int numFilasAfectadas = conexionBD.insert("promocion.promocionPorSucursal", promocion);
+                   conexionBD.commit();
+                   if(numFilasAfectadas > 0){
+                       msj.setError(false);
+                       msj.setMensaje("Promocion registrada con exito");
+                   }else{
+                       msj.setMensaje("Error al enviar los datos");
+                   }
+               }else{
+                   msj.setMensaje("promocion y/o sucursal no existe");
+               }
+            }catch(Exception e){
+                msj.setMensaje("Error "+e);
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            msj.setMensaje("Error en la conexión, intentelo más tarde");
+        }
+        return msj;
     }
 }

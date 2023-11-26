@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
+import modelo.pojo.PromocionSucursal;
 
 @Path("promocion")
 public class PromocionWS {
@@ -160,5 +161,25 @@ public class PromocionWS {
     public List<Promocion> listarPromociones(){
         List<Promocion> promocion =  PromocionDAO.listarPromociones();
         return promocion;
+    }
+    
+    @POST
+    @Path("promocionPorSucursal")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje promocionPorSucursal(String jsonParam){
+        Mensaje msj = new Mensaje();
+        Gson gson = new Gson();
+        try{
+            PromocionSucursal promocion = gson.fromJson(jsonParam, PromocionSucursal.class);
+            if(promocion != null){
+                msj = PromocionDAO.promocionPorSucursal(promocion);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            msj.setMensaje("Error: " + e);
+        }
+        return msj;
     }
 }
