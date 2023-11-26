@@ -36,7 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="promociones" resultType="modelo.pojo.Promocion">
-        SELECT nombre,descripcion,inicioPromocion,finPromocion,restriccion,idTipoPromocion,numeroCupones,estatus,idEmpresa FROM promocion
+        SELECT p.nombre,p.descripcion,p.inicioPromocion,p.finPromocion,p.restriccion,t.tipo AS tipo,p.numeroCupones,p.estatus,e.nombreComercial AS empresa FROM promocion p
+        JOIN tipopromocion t ON t.idTipoPromocion = p.idTipoPromocion JOIN empresa e ON e.idEmpresa = p.idEmpresa
     </select>
     
     <select id="promocionDetalle" resultType="modelo.pojo.Promocion" parameterType="int">
