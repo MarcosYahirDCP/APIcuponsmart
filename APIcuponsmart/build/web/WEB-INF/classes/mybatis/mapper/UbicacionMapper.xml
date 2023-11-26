@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ubicacion">
+    <insert id="agregarUbicacion" parameterType="modelo.pojo.Ubicacion">
+        INSERT INTO ubicacion(calle,numero,codigoPostal,colonia,latitud,longitud,idMunicipio)  
+        VALUES(#{calle},#{numero},#{codigoPostal},#{colonia},#{latitud},#{longitud},#{idMunicipio})
+    </insert>
+    
+    <update id="editarUbicacion" parameterType="map">
+        UPDATE  ubicacion SET calle = #{calle},numero = #{numero},codigoPostal = #{codigoPostal},colonia = #{colonia},latitud = #{latitud},longitud = #{longitud},idMunicipio = #{idMunicipio}
+        WHERE idUbicacion = #{idUbicacion}
+    </update>
+    
+    <select id="obtenerUbicacion" resultType="modelo.pojo.Ubicacion" parameterType="int">
+        SELECT u.calle, u.numero, u.codigoPostal, u.colonia, u.latitud, u.longitud, m.nombre AS municipio, e.nombre AS estado 
+        FROM ubicacion u JOIN municipio m ON u.idMunicipio = m.idMunicipio JOIN estado e ON m.idEstado = e.idEstado
+        WHERE u.idUbicacion = #{idUbicacion}
+    </select>
+</mapper>
