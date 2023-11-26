@@ -10,6 +10,7 @@ public class Empleado {
     private String nombreUsuario;
     private String contraseña;
     private Integer idRol;
+    private String rol;
     private Integer idEmpresa;
     private String nombreRol;
     private String nombreEmpresa;
@@ -21,7 +22,7 @@ public class Empleado {
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String correo, String nombreUsuario, String contraseña, Integer idRol, Integer idEmpresa, String nombreRol, String nombreEmpresa, String nombreComercial, String RFC, Byte[] logo, String logoBase64) {
+    public Empleado(Integer idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String correo, String nombreUsuario, String contraseña, Integer idRol, String rol ,Integer idEmpresa, String nombreRol, String nombreEmpresa, String nombreComercial, String RFC, Byte[] logo, String logoBase64) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -31,6 +32,7 @@ public class Empleado {
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
         this.idRol = idRol;
+        this.rol = rol;
         this.idEmpresa = idEmpresa;
         this.nombreRol = nombreRol;
         this.nombreEmpresa = nombreEmpresa;
@@ -38,6 +40,14 @@ public class Empleado {
         this.RFC = RFC;
         this.logo = logo;
         this.logoBase64 = logoBase64;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public Integer getIdEmpleado() {
