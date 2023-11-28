@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM empleado WHERE nombre = #{nombre}
     </select>
     
-    <select id="empleadoPorRol" resultType="modelo.pojo.Empleado" parameterType="int">
+    <select id="empleadosPorRol" resultType="modelo.pojo.Empleado" parameterType="int">
         SELECT * FROM empleado WHERE idRol = #{idRol}
     </select>
     

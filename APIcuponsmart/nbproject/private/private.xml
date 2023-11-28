@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/brandon/Desktop/APIcuponsmart/APIcuponsmart/src/java/mybatis/mapper/EmpleadoMapper.xml</file>
+            <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/modelo/UbicacionDAO.java</file>
+            <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/mybatis/mapper/UbicacionMapper.xml</file>
+            <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/ws/UbicacionWS.java</file>
         </group>
     </open-files>
 </project-private>

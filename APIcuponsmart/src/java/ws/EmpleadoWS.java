@@ -1,6 +1,7 @@
 package ws;
 
 import com.google.gson.Gson;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -90,14 +91,14 @@ public class EmpleadoWS {
     @GET
     @Path("empleadoPorRol/{idRol}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Empleado empleadoPorRol(@PathParam("idRol") Integer idRol){
-        Empleado empleado = null;
+    public List<Empleado> empleadosPorRol(@PathParam("idRol") Integer idRol){
+        List<Empleado> empleados = new ArrayList<>();
         if(idRol!= null && idRol>0 ){
-            empleado = EmpleadoDAO.empleadoPorRol(idRol);
+            empleados = EmpleadoDAO.empleadosPorRol(idRol);
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        return empleado;
+        return empleados;
     }
     
     @GET

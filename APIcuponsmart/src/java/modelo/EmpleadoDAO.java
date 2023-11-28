@@ -1,6 +1,7 @@
 
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 import modelo.pojo.Empleado;
 import modelo.pojo.Mensaje;
@@ -95,12 +96,12 @@ public class EmpleadoDAO {
         return msj;
     }
     
-    public static Empleado empleadoPorRol(Integer idRol){
-        Empleado empleado = null;
+    public static List<Empleado> empleadosPorRol(Integer idRol){
+        List <Empleado> empleados = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
-                empleado = conexionBD.selectOne("empleado.empleadoPorRol", idRol);
+                empleados = conexionBD.selectList("empleado.empleadosPorRol", idRol);
             }catch(Exception e){
                 e.printStackTrace();
             }finally{
@@ -108,7 +109,7 @@ public class EmpleadoDAO {
             }
         }else{
         }
-        return empleado;
+        return empleados;
     }
     
     public static Empleado empleadoPorNombre(String nombre){
