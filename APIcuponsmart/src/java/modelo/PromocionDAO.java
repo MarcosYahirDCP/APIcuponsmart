@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.List;
+import modelo.pojo.CanjeoCupon;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.PromocionSucursal;
@@ -226,6 +227,23 @@ public class PromocionDAO {
                 msj.setMensaje("Error "+e);
             }finally{
                 conexionBD.close();
+            }
+        }else{
+            msj.setMensaje("Error en la conexión, intentelo más tarde");
+        }
+        return msj;
+    }
+    
+    public static Mensaje canjeoCupon (CanjeoCupon canjeo){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            CanjeoCupon usuarioExiste = conexionBD.selectOne("cliente.verificarCorreo", canjeo.getCorreo());
+            if(usuarioExiste != null){
+                CanjeoCupon promocionSucursal = conexionBD.selectOne("promocion.promocionEnSucursal", canjeo.getCodigoPromocion());
+            }else{
+                msj.setMensaje("El correo del cliente no se encuentra registradi");
             }
         }else{
             msj.setMensaje("Error en la conexión, intentelo más tarde");
