@@ -1,24 +1,34 @@
 package modelo.pojo;
 
 public class PromocionSucursal {
-    private Integer idPromocion;
+    //private Integer idPromocion;
+    private String codigoPromocion;
     private Integer idSucursal;
 
     public PromocionSucursal() {
     }
 
-    public PromocionSucursal(Integer idPromocion, Integer idSucursal) {
-        this.idPromocion = idPromocion;
+    public PromocionSucursal(/*Integer idPromocion,*/ String codigoPromocion,Integer idSucursal) {
+        //this.idPromocion = idPromocion;
+        this.codigoPromocion = codigoPromocion;
         this.idSucursal = idSucursal;
     }
 
-    public Integer getIdPromocion() {
-        return idPromocion;
+    public String getCodigoPromocion() {
+        return codigoPromocion;
     }
 
-    public void setIdPromocion(Integer idPromocion) {
-        this.idPromocion = idPromocion;
+    public void setCodigoPromocion(String codigoPromocion) {
+        this.codigoPromocion = codigoPromocion;
     }
+    
+    /*public Integer getIdPromocion() {
+        return idPromocion;
+    }*/
+
+    /*public void setIdPromocion(Integer idPromocion) {
+        this.idPromocion = idPromocion;
+    }*/
 
     public Integer getIdSucursal() {
         return idSucursal;

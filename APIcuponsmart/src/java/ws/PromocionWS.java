@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
+import modelo.pojo.CanjeoCupon;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.PromocionSucursal;
@@ -174,6 +175,26 @@ public class PromocionWS {
             PromocionSucursal promocion = gson.fromJson(jsonParam, PromocionSucursal.class);
             if(promocion != null){
                 msj = PromocionDAO.promocionPorSucursal(promocion);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            msj.setMensaje("Error: " + e);
+        }
+        return msj;
+    }
+    
+    @POST
+    @Path("canjeoCupon")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje canjeoCupon(String jsonParam){
+        Mensaje msj = new Mensaje();
+        Gson gson = new Gson();
+        try{
+            CanjeoCupon canjeo = gson.fromJson(jsonParam, CanjeoCupon.class);
+            if(canjeo != null){
+                msj = PromocionDAO.canjeoCupon(canjeo);
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }

@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.List;
 import modelo.pojo.CanjeoCupon;
+import modelo.pojo.Cliente;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.PromocionSucursal;
@@ -209,7 +210,7 @@ public class PromocionDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
-               Promocion promocionExiste = conexionBD.selectOne("promocion.promocionPorId", promocion.getIdPromocion());
+               Promocion promocionExiste = conexionBD.selectOne("promocion.verificarCodigo", promocion.getCodigoPromocion());
                Sucursal sucursalExiste = conexionBD.selectOne("sucursal.sucursalPorId",promocion.getIdSucursal());
                if(promocionExiste != null && sucursalExiste != null){
                    int numFilasAfectadas = conexionBD.insert("promocion.promocionPorSucursal", promocion);
@@ -234,16 +235,102 @@ public class PromocionDAO {
         return msj;
     }
     
+    public static Boolean cuponDisponible(String codigoPromocion){
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        Boolean disponible = false;
+        if(conexionBD != null){
+         try{
+             Promocion estatus = conexionBD.selectOne("promocion.verificarCodigo", codigoPromocion);
+             if(estatus.getEstatus().equals("Activo")){
+                 disponible = true;
+             }
+         }catch(Exception e){
+             e.printStackTrace();
+         }   
+        }
+        return disponible;
+    }
+    
+    public static Mensaje inhabilitarCupon(String codigoPromocion){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+         try{
+             Promocion cupones = conexionBD.selectOne("promocion.verificarCodigo", codigoPromocion);
+             if(cupones.getNumeroCupones() == 0){
+                 msj.setError(false);
+                 cupones.setEstatus("Inactivo");
+                 editarPromocion(cupones);
+             }
+             else{
+                 msj.setMensaje("Aun quedan " +cupones.getNumeroCupones() + " disponibles");
+             }
+         }catch(Exception e){
+             e.printStackTrace();
+         }   
+        }
+        return msj;
+    }
+    
+    public static Boolean cuponPorUsuario(String correo){
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        Boolean disponible = true;
+        if(conexionBD != null){
+         try{
+             CanjeoCupon correoExiste = conexionBD.selectOne("promocion.clientePromocion", correo);
+             if(correoExiste.getCorreo().equals(correo)){
+                 disponible = false;
+             }
+         }catch(Exception e){
+             e.printStackTrace();
+         }   
+        }
+        return disponible;
+    }
+    
     public static Mensaje canjeoCupon (CanjeoCupon canjeo){
         Mensaje msj = new Mensaje();
         msj.setError(true);
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
-            CanjeoCupon usuarioExiste = conexionBD.selectOne("cliente.verificarCorreo", canjeo.getCorreo());
-            if(usuarioExiste != null){
-                CanjeoCupon promocionSucursal = conexionBD.selectOne("promocion.promocionEnSucursal", canjeo.getCodigoPromocion());
-            }else{
-                msj.setMensaje("El correo del cliente no se encuentra registradi");
+            try{
+                Boolean disponible = cuponDisponible(canjeo.getCodigoPromocion());
+                Boolean correoExiste = cuponPorUsuario(canjeo.getCorreo());
+                if(correoExiste.equals(true)){
+                    if(disponible.equals(true)){
+                        Cliente clienteExiste = conexionBD.selectOne("cliente.verificarCorreo", canjeo.getCorreo());
+                        if(clienteExiste != null){
+                            PromocionSucursal promocionSucursal = conexionBD.selectOne("promocion.promocionEnSucursal", canjeo.getCodigoPromocion());
+                            if (promocionSucursal != null){
+                                int numFilasAfectadas = conexionBD.insert("promocion.canjeoCupon", canjeo);
+                                conexionBD.commit();
+                                if(numFilasAfectadas > 0){
+                                    msj.setError(false);
+                                    msj.setMensaje("Promocion canjada con exitó");
+                                    Promocion cupones = conexionBD.selectOne("promocion.verificarCodigo", canjeo.getCodigoPromocion());
+                                    cupones.setNumeroCupones(cupones.getNumeroCupones()-1);
+                                    editarPromocion(cupones);
+                                    inhabilitarCupon(canjeo.getCodigoPromocion());
+                                }else{
+                                    msj.setMensaje("Error al canjear el cupon");
+                                }
+                            }else{
+                                msj.setMensaje("La promocion no se encuentra disponible en la sucursal");
+                            }
+                        }else{
+                            msj.setMensaje("El correo del cliente no se encuentra registrado");
+                        }
+                    }else{
+                        msj.setMensaje("El cupon no se encuentra activo");
+                    }
+                }else{
+                    msj.setMensaje("El usuario ya canjeo el cupon");
+                }
+            }catch (Exception e){
+                msj.setMensaje("Error "+ e);
+            }finally{
+                conexionBD.close();
             }
         }else{
             msj.setMensaje("Error en la conexión, intentelo más tarde");
