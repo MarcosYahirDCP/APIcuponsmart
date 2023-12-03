@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.HashMap;
 import java.util.List;
 import modelo.pojo.CanjeoCupon;
 import modelo.pojo.Cliente;
@@ -273,15 +274,38 @@ public class PromocionDAO {
         return msj;
     }
     
-    public static Boolean cuponPorUsuario(String correo){
+    public static Boolean cuponPorUsuario(CanjeoCupon canjeo){
         SqlSession conexionBD = MyBatisUtil.getSession();
         Boolean disponible = true;
         if(conexionBD != null){
          try{
-             CanjeoCupon correoExiste = conexionBD.selectOne("promocion.clientePromocion", correo);
-             if(correoExiste.getCorreo().equals(correo)){
+             HashMap<String, String> parametros = new HashMap<>();
+                parametros.put("correo",canjeo.getCorreo());
+                parametros.put("codigoPromocion",canjeo.getCodigoPromocion());
+                CanjeoCupon usuario = conexionBD.selectOne("promocion.clientePromocion", parametros);
+                if(usuario!=null){
                  disponible = false;
-             }
+                }
+             
+         }catch(Exception e){
+             e.printStackTrace();
+         }   
+        }
+        return disponible;
+    }
+    
+    public static Boolean promocionEnSucursal(String codigoPromocion, Integer idSucursal){
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        Boolean disponible = false;
+        if(conexionBD != null){
+         try{
+             HashMap<String, String> parametros = new HashMap<>();
+             parametros.put("codigoPromocion", codigoPromocion);
+             parametros.put("idSucursal", idSucursal.toString());
+             PromocionSucursal existe = conexionBD.selectOne("promocion.promocionEnSucursal", parametros);
+                if(existe!=null){
+                 disponible = true;
+                }
          }catch(Exception e){
              e.printStackTrace();
          }   
@@ -295,14 +319,14 @@ public class PromocionDAO {
         SqlSession conexionBD = MyBatisUtil.getSession();
         if(conexionBD != null){
             try{
-                Boolean disponible = cuponDisponible(canjeo.getCodigoPromocion());
-                Boolean correoExiste = cuponPorUsuario(canjeo.getCorreo());
+                Boolean correoExiste = cuponPorUsuario(canjeo);
                 if(correoExiste.equals(true)){
+                    Boolean disponible = cuponDisponible(canjeo.getCodigoPromocion());
                     if(disponible.equals(true)){
                         Cliente clienteExiste = conexionBD.selectOne("cliente.verificarCorreo", canjeo.getCorreo());
                         if(clienteExiste != null){
-                            PromocionSucursal promocionSucursal = conexionBD.selectOne("promocion.promocionEnSucursal", canjeo.getCodigoPromocion());
-                            if (promocionSucursal != null){
+                            Boolean promocionSucursal = promocionEnSucursal(canjeo.getCodigoPromocion(), canjeo.getIdSucursal());
+                            if (promocionSucursal.equals(true)){
                                 int numFilasAfectadas = conexionBD.insert("promocion.canjeoCupon", canjeo);
                                 conexionBD.commit();
                                 if(numFilasAfectadas > 0){

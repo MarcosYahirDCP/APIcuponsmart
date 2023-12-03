@@ -1,27 +1,27 @@
 package modelo.pojo;
 
 public class CanjeoCupon {
-    private Integer idCanjeo;
     private String correo;
     private String codigoPromocion;
     private String fechaCanjeo;
-
+    private Integer idSucursal;
+    
     public CanjeoCupon() {
     }
 
-    public CanjeoCupon(Integer idCanjeo, String correo, String codigoPromocion, String fechaCanjeo) {
-        this.idCanjeo = idCanjeo;
+    public CanjeoCupon(Integer idSucursal, String correo, String codigoPromocion, String fechaCanjeo) {
+        this.idSucursal = idSucursal;
         this.correo = correo;
         this.codigoPromocion = codigoPromocion;
         this.fechaCanjeo = fechaCanjeo;   
     }
     
-    public Integer getIdCanjeo() {
-        return idCanjeo;
+    public Integer getIdSucursal() {
+        return idSucursal;
     }
 
-    public void setIdCanjeo(Integer idCanjeo) {
-        this.idCanjeo = idCanjeo;
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
     public String getCorreo() {

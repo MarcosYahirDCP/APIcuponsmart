@@ -56,15 +56,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO promocionsucursal VALUES (#{idPromocion},#{idSucursal})
     </insert>
     
-    <select id="promocionEnSucursal" parameterType="modelo.pojo.PromocionSucursal" resultType="modelo.pojo.PromocionSucursal">
-        SELECT * FROM promocionSucursal WHERE codigoPromocion = #{codigoPromocion}
+    <select id="promocionEnSucursal" parameterType="map" resultType="modelo.pojo.PromocionSucursal">
+        SELECT * FROM promocionSucursal WHERE codigoPromocion = #{codigoPromocion} AND idSucursal = #{idSucursal}
     </select>
     
     <insert id="canjeoCupon" parameterType="modelo.pojo.CanjeoCupon">
-        INSERT INTO canjeocupon(correo, codigoPromocion, fechaCanjeo) VALUES(#{correo},#{codigoPromocion},#{fechaCanjeo});
+        INSERT INTO canjeocupon(correo, codigoPromocion, fechaCanjeo,idSucursal) VALUES(#{correo},#{codigoPromocion},#{fechaCanjeo},#{idSucursal});
     </insert>
     
-    <select id="clientePromocion" parameterType="String" resultType="modelo.pojo.CanjeoCupon">
-        SELECT * FROM canjeoCupon WHERE correo = #{correo}
+    <select id="clientePromocion" parameterType="map" resultType="modelo.pojo.CanjeoCupon">
+        SELECT * FROM canjeoCupon WHERE correo = #{correo} AND codigoPromocion = #{codigoPromocion}
     </select>
 </mapper>
