@@ -66,12 +66,14 @@ public class UbicacionDAO {
     public static Ubicacion obtenerUbicacion(Integer idUbicacion){
         Ubicacion ubicacion = null;
         SqlSession conexionBD = MyBatisUtil.getSession();
-        try{
-            ubicacion = conexionBD.selectOne("ubicacion.obtenerUbicacion", idUbicacion);
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            conexionBD.close();
+        if(conexionBD != null){
+            try{
+                ubicacion = conexionBD.selectOne("ubicacion.obtenerUbicacion", idUbicacion);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
         }
         return ubicacion;
     }

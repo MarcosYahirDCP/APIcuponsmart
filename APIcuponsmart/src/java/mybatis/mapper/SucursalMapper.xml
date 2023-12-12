@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="sucursalPorEmpresa" resultType="modelo.pojo.Sucursal" parameterType="int">
-        SELECT s.idSucursal, s.nombre, s.telefono, s.encargado,u.calle AS calle, u.codigoPostal AS codigoPostal,e.nombreComercial AS nombreEmpresa FROM sucursal s JOIN empresa e ON s.idEmpresa = e.idEmpresa JOIN ubicacion u ON s.idUbicacion = u.idUbicacion
+        SELECT s.idSucursal, s.nombre, s.telefono, s.encargado,u.calle AS calle, u.numero AS numero,u.codigoPostal AS codigoPostal,e.nombreComercial AS nombreEmpresa FROM sucursal s JOIN empresa e ON s.idEmpresa = e.idEmpresa JOIN ubicacion u ON s.idUbicacion = u.idUbicacion
          WHERE e.idEmpresa = #{idEmpresa};
     </select>
     
