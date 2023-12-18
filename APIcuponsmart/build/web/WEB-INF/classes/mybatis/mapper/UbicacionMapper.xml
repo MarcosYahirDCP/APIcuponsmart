@@ -20,4 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         FROM ubicacion u JOIN municipio m ON u.idMunicipio = m.idMunicipio JOIN estado e ON m.idEstado = e.idEstado
         WHERE u.idUbicacion = #{idUbicacion}
     </select>
+    
+    <select id="obtenerUbicacionRegistro" resultType="int" parameterType="map">
+        SELECT idUbicacion FROM ubicacion WHERE latitud = #{latitud} AND longitud = #{longitud}
+    </select>
 </mapper>

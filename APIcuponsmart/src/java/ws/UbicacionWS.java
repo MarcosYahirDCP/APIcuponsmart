@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.UbicacionDAO;
+import modelo.pojo.Coordenada;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Ubicacion;
 
@@ -79,5 +80,18 @@ public class UbicacionWS {
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         return ubicacion;
+    }
+    
+    @GET
+    @Path("obtenerUbicacionRegistro")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public int obtenerUbicacionRegistro(String jsonparams){
+        int idUbicacion = 0;
+        Gson gson = new Gson();
+        Coordenada coordenada = gson.fromJson(jsonparams, Coordenada.class);
+        if (coordenada.getLatitud() != null && coordenada.getLongitud() != null) {
+            idUbicacion = UbicacionDAO.obtenerUbicacionRegistro(coordenada.getLatitud(), coordenada.getLongitud());
+        }
+        return idUbicacion;
     }
 }

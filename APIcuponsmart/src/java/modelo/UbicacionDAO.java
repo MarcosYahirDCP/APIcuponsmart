@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.HashMap;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Ubicacion;
 import mybatis.MyBatisUtil;
@@ -76,5 +77,24 @@ public class UbicacionDAO {
             }
         }
         return ubicacion;
+    }
+    public static int obtenerUbicacionRegistro(String latitud, String longitud){
+        int idRecuperada = 0;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                HashMap<String, String> parametros = new HashMap<>();
+                parametros.put("latitud",latitud);
+                parametros.put("longitud",longitud);
+                idRecuperada = conexionBD.selectOne("ubicacion.obtenerUbicacionRegistro", parametros);
+             
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                conexionBD.close();
+            }
+        }
+        
+        return idRecuperada;
     }
 }
