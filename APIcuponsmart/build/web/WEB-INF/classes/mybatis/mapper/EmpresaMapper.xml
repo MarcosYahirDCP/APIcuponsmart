@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM empresa WHERE representante = #{representante}
     </select>
     <select id="listaEmpresa" resultType="modelo.pojo.Empresa" >
-        SELECT nombre,RFC,representante,paginaWeb,estatus,correo FROM empresa
+        SELECT idEmpresa, nombre,RFC,representante,paginaWeb,estatus,correo FROM empresa
     </select>
     
     <update id="editarEmpresa" parameterType="map">

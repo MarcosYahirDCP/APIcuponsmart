@@ -63,7 +63,7 @@ public class EmpleadoWS {
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
             }
         }catch(Exception e){
-            msj.setMensaje("Errpr al enviar los datos "+e);
+            msj.setMensaje("Error al enviar los datos "+e);
         }
         return msj;
     }
@@ -83,7 +83,7 @@ public class EmpleadoWS {
                 msj.setMensaje("El idEmpleado debe ser mayor a 0");
             }
         }catch(Exception e){
-            msj.setMensaje("Errpr al enviar los datos "+e);
+            msj.setMensaje("Error al enviar los datos "+e);
         }
         return msj;
     }

@@ -18,6 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="verificarCorreo" resultType="modelo.pojo.Empleado" parameterType="String">
         SELECT * FROM empleado WHERE correo = #{correo}
     </select>
+    <select id="verificarCurp" resultType="modelo.pojo.Empleado" parameterType="String">
+        SELECT * FROM empleado WHERE CURP = #{CURP}
+    </select>
     
     <select id="empleadoPorNombreUsuario" resultType="modelo.pojo.Empleado" parameterType="String">
         SELECT * FROM empleado WHERE nombreUsuario = #{nombreUsuario}
@@ -32,11 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="listaEmpleados" resultType="modelo.pojo.Empleado" parameterType="int">
-        SELECT e.nombre, e.apellidoPaterno, e.apellidoMaterno, e.CURP, e.correo, r.nombre AS nombreRol FROM empleado e 
+        SELECT e.idEmpleado, e.nombre, e.apellidoPaterno, e.apellidoMaterno, e.CURP, e.correo, e.nombreUsuario, e.contraseña, e.idRol, idEmpresa, r.nombre AS nombreRol FROM empleado e 
         JOIN rol r ON e.idRol = r.idRol WHERE e.idEmpresa = #{idEmpresa};
     </select>
     
-    <update id="editarEmpleado" parameterType="map">
+    <update id="editarEmpleado" parameterType="modelo.pojo.Empleado">
         UPDATE empleado SET nombre = #{nombre}, apellidoPaterno = #{apellidoPaterno}, apellidoMaterno = #{apellidoMaterno}, 
         CURP = #{CURP}, correo = #{correo}, nombreUsuario = #{nombreUsuario}, contraseña = #{contraseña}, idEmpresa = #{idEmpresa}
         WHERE idEmpleado = #{idEmpleado}

@@ -61,7 +61,7 @@ public class EmpleadoDAO {
                     msj.setMensaje("El empleado con id " +empleado.getIdEmpleado() + " No existe");
                 }
             }catch(Exception e){
-                msj.setMensaje("Error al encair los datos " + e);
+                msj.setMensaje("Error al enviar los datos " + e);
             }finally{
                 conexionBD.close();
             }
@@ -86,7 +86,7 @@ public class EmpleadoDAO {
                     msj.setMensaje("Error al enviar los datos");
                 }
             }catch(Exception e){
-                msj.setMensaje("Error al encair los datos " + e);
+                msj.setMensaje("Error al enviar los datos " + e);
             }finally{
                 conexionBD.close();
             }
