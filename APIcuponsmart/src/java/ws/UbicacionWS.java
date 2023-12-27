@@ -84,7 +84,6 @@ public class UbicacionWS {
     
     @POST
     @Path("obtenerUbicacionRegistro")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Integer obtenerUbicacionRegistro(String jsonparams){
         Integer idUbicacion = 0;
