@@ -78,8 +78,8 @@ public class UbicacionDAO {
         }
         return ubicacion;
     }
-    public static int obtenerUbicacionRegistro(String latitud, String longitud){
-        int idRecuperada = 0;
+    public static Integer obtenerUbicacionRegistro(String latitud, String longitud){
+        Integer idRecuperada = 0;
         SqlSession conexionBD = MyBatisUtil.getSession();
         if (conexionBD != null) {
             try {

@@ -82,11 +82,12 @@ public class UbicacionWS {
         return ubicacion;
     }
     
-    @GET
+    @POST
     @Path("obtenerUbicacionRegistro")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public int obtenerUbicacionRegistro(String jsonparams){
-        int idUbicacion = 0;
+    public Integer obtenerUbicacionRegistro(String jsonparams){
+        Integer idUbicacion = 0;
         Gson gson = new Gson();
         Coordenada coordenada = gson.fromJson(jsonparams, Coordenada.class);
         if (coordenada.getLatitud() != null && coordenada.getLongitud() != null) {
