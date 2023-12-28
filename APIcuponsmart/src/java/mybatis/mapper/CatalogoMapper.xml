@@ -12,4 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="obtenerMunicipiosEstados" parameterType="int" resultType="modelo.pojo.Municipio">
         SELECT * FROM municipio WHERE idEstado = #{idEstado}
     </select>
+    
+    <select id="obteneMunicipioPorID" parameterType="int" resultType="modelo.pojo.Municipio">
+        SELECT * FROM municipio WHERE idMunicipio = #{idMunicipio}
+    </select>
 </mapper>

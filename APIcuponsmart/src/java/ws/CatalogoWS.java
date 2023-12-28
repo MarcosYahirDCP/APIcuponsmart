@@ -37,4 +37,17 @@ public class CatalogoWS {
         }
         return municipios;
     }
+    
+    @Path("obtenerMunicipioPorId/{idMunicipio}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Municipio obtenerEstadoPorId(@PathParam("idMunicipio") Integer idMunicipio){
+        Municipio municipio = new Municipio();
+        if(idMunicipio != null && idMunicipio > 0){
+            municipio = CatalogoDAO.obtenerMunicipioPorID(idMunicipio);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return municipio;
+    }
 }

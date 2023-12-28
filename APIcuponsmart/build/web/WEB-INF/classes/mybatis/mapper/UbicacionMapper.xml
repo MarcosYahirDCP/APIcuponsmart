@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     
     <select id="obtenerUbicacion" resultType="modelo.pojo.Ubicacion" parameterType="int">
-        SELECT u.calle, u.numero, u.codigoPostal, u.colonia, u.latitud, u.longitud, m.nombre AS municipio, e.nombre AS estado 
+        SELECT u.calle, u.numero, u.codigoPostal, u.colonia, u.latitud, u.longitud, u.idMunicipio, m.nombre AS municipio, e.nombre AS estado 
         FROM ubicacion u JOIN municipio m ON u.idMunicipio = m.idMunicipio JOIN estado e ON m.idEstado = e.idEstado
         WHERE u.idUbicacion = #{idUbicacion}
     </select>

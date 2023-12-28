@@ -66,8 +66,7 @@ public class SucursalWS {
             if(sucursal != null && sucursal.getIdSucursal() != null && sucursal.getIdSucursal() >0 &&
                     sucursal.getNombre() != null && !sucursal.getNombre().isEmpty() &&
                     sucursal.getTelefono() != null && !sucursal.getTelefono().isEmpty() &&
-                    sucursal.getEncargado() != null && !sucursal.getEncargado().isEmpty() && 
-                    sucursal.getIdUbicacion() != null){
+                    sucursal.getEncargado() != null && !sucursal.getEncargado().isEmpty()){
                 msj = SucursalDAO.editarSucursal(sucursal, sucursal.getIdSucursal());
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);

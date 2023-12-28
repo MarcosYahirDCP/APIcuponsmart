@@ -39,4 +39,19 @@ public class CatalogoDAO {
         }
         return municipios;
     }
+    
+    public static Municipio obtenerMunicipioPorID(Integer idMunicipio){
+        Municipio municipio = new Municipio();
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                municipio = conexionBD.selectOne("catalogo.obteneMunicipioPorID", idMunicipio);
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }
+        return municipio;
+    }
 }
