@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT * FROM empresa WHERE representante = #{representante}
     </select>
     <select id="listaEmpresa" resultType="modelo.pojo.Empresa" >
-        SELECT idEmpresa, nombre,RFC,representante,paginaWeb,estatus,correo FROM empresa
+        SELECT idEmpresa, nombre, nombreComercial, RFC,representante,telefono,paginaWeb,estatus,correo, idUbicacion FROM empresa
     </select>
     
     <update id="editarEmpresa" parameterType="map">
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          WHERE RFC = #{RFC} 
     </update>
     
-    <delete id="eliminarEmpresa" parameterType="map">
+    <delete id="eliminarEmpresa" parameterType="String">
         DELETE FROM empresa WHERE RFC = #{RFC}
     </delete>
     
