@@ -155,4 +155,21 @@ public class SucursalDAO {
         }
         return sucursal;
     }
+    
+    public static List<Sucursal> sucursales(){
+        List<Sucursal> sucursal = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+              sucursal = conexionBD.selectList("sucursal.sucursales");
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return sucursal;
+    }
 }

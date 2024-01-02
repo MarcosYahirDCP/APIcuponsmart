@@ -160,6 +160,22 @@ public class EmpleadoDAO {
         return empleado;
     }
     
+    public static List<Empleado> empleados(){
+        List<Empleado> empleado = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                empleado = conexionBD.selectList("empleado.empleados");
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+        }
+        return empleado;
+    }
+    
     public static Empleado empleadoPorId(Integer idEmpleado){
         Empleado empleado = null;
         SqlSession conexionBD = MyBatisUtil.getSession();

@@ -141,6 +141,14 @@ public class EmpleadoWS {
     }
     
     @GET
+    @Path("empleados")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Empleado> empleados(){
+        List<Empleado> empleado = EmpleadoDAO.empleados();
+        return empleado;
+    }
+    
+    @GET
     @Path("empleadoPorId/{idEmpleado}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Empleado empleadoPorId(@PathParam("idEmpleado") Integer idEmpleado){

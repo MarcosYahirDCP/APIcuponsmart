@@ -138,6 +138,14 @@ public class SucursalWS {
     }
     
     @GET
+    @Path("sucursales")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Sucursal> sucursales(){
+        List<Sucursal> sucursal = SucursalDAO.sucursales();        
+        return sucursal;
+    }
+    
+    @GET
     @Path("sucursalPorId/{idSucursal}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Sucursal sucursalPorId(@PathParam("idSucursal") Integer idSucursal){
