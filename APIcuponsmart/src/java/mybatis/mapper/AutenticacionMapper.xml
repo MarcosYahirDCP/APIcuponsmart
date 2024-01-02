@@ -5,13 +5,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="autenticacion">
-    <select id="inicioSesion" resultType="modelo.pojo.Empleado" parameterType="map">
+     
+    <select id="inicioSesionComercial" resultType="modelo.pojo.Empleado" parameterType="map">
         SELECT e.idEmpleado, e.nombre, e.apellidoPaterno, e.apellidoMaterno, e.CURP, e.correo, e.nombreUsuario, e.contraseña, e.idRol, e.idEmpresa, 
         b.RFC AS RFC, b.nombreComercial AS nombreComercial, b.nombre AS nombreEmpresa, b.logo AS logo FROM empleado e JOIN empresa b ON e.idEmpresa = b.idEmpresa  
         WHERE nombreUsuario = #{nombreUsuario} AND contraseña = #{contraseña}
     </select>
     
+    <select id="inicioSesion" resultType="modelo.pojo.Empleado" parameterType="map">
+        SELECT idEmpleado, nombre, apellidoPaterno, apellidoMaterno, CURP, correo, nombreUsuario, contraseña, idRol, idEmpresa  
+        FROM empleado 
+        WHERE nombreUsuario = #{nombreUsuario} AND contraseña = #{contraseña}
+    </select>
     <select id="inicioSesionMobil" resultType="modelo.pojo.Cliente" parameterType="map">
         SELECT * FROM cliente WHERE correo = #{correo} AND contraseña = #{contraseña}
     </select>
+    
 </mapper>

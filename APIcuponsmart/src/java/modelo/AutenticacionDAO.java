@@ -36,6 +36,32 @@ public class AutenticacionDAO {
         return respuesta;
     }
     
+    public static RespuestaLoginEscritorio verificarInicioSesionEscritorioComercial(String nombreUsuario, String contraseña){
+        RespuestaLoginEscritorio respuesta = new RespuestaLoginEscritorio();
+        respuesta.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                HashMap<String, String> parametros = new HashMap<>();
+                parametros.put("nombreUsuario",nombreUsuario);
+                parametros.put("contraseña",contraseña);
+                Empleado empleadoSesion = conexionBD.selectOne("autenticacion.inicioSesionComercial",parametros);
+                if(empleadoSesion != null){
+                    respuesta.setError(false);
+                    respuesta.setMensaje("Bienvenid@ "+empleadoSesion.getNombreUsuario() + " al sistema de cuponSmart");
+                    respuesta.setEmpleadoSesion(empleadoSesion);
+                }else{
+                    respuesta.setMensaje("correo y/o contraseña incorrectas, favor de verificar sus credenciales");
+                }
+            }catch(Exception e){
+                respuesta.setMensaje("Error: " + e.getMessage());
+            }
+    }else{
+            respuesta.setMensaje("Hubo un error con la conexion a la base de datos.");
+        }
+        return respuesta;
+    }
+    
     public static RespuestaLoginMovil verificarInicioSesionMovil(String correo, String contraseña){
         RespuestaLoginMovil respuesta = new RespuestaLoginMovil();
         respuesta.setError(true);

@@ -45,6 +45,26 @@ public class AutenticacionWS {
         }
         return respuestaLogin;
     }
+    
+    @POST
+    @Path("iniciarSesionComercial")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public RespuestaLoginEscritorio loginEscritorioComercial(String jsonParam){
+        RespuestaLoginEscritorio respuestaLogin = null;
+        try{
+            Gson gson = new Gson();
+            Empleado empleado = gson.fromJson(jsonParam, Empleado.class);
+            if(empleado.getNombreUsuario() != null && !empleado.getNombreUsuario().isEmpty() && empleado.getContraseña() !=null &&!empleado.getContraseña().isEmpty()){
+                respuestaLogin = AutenticacionDAO.verificarInicioSesionEscritorioComercial(empleado.getNombreUsuario(), empleado.getContraseña());
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return respuestaLogin;
+    }
 
     @POST
     @Path("iniciarSesionMobil")
