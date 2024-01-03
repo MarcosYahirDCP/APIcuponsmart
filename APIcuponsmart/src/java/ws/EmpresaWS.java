@@ -151,4 +151,33 @@ public class EmpresaWS {
             empresa =  EmpresaDAO.listaEmpresa();
         return empresa;
     }
+    //-------------------------------------------------------------Subir logo de la empresa-------------------------------------------------------------\\
+    @PUT
+    @Path("subirLogo/{idEmpresa}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje subirLogoEmpresa(@PathParam("idEmpresa") Integer idEmpresa, byte[] logo){
+        Mensaje msj = new Mensaje();
+        if(idEmpresa >0 && logo!=null){
+            msj = EmpresaDAO.registrarLogoEmpresa(idEmpresa, logo);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return msj;
+    }
+    
+    //-------------------------------------------------------------Recuperar logo de la empresa-------------------------------------------------------------\\
+    @GET
+    @Path("obtenerLogo/{idEmpresa}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Empresa obtenerLogoEmpresa(@PathParam("idEmpresa") Integer idEmpresa){
+        Empresa empresa  = null;
+        if(idEmpresa != null && idEmpresa > 0){
+            empresa = EmpresaDAO.obtenerLogoEmpresa(idEmpresa);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        
+        return empresa;
+    }
+
 }

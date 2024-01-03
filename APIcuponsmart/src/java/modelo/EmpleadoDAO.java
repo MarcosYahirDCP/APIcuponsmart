@@ -96,6 +96,31 @@ public class EmpleadoDAO {
         return msj;
     }
     
+    public static Mensaje eliminarEmpleadosEmpresa(int idEmpresa){
+        Mensaje msj =  new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                int numeroFilasAfectadas = conexionBD.delete("empleado.eliminarEmpleadosEmpresa", idEmpresa);
+                conexionBD.commit();
+                if(numeroFilasAfectadas > 0){
+                  msj.setError(false);
+                    msj.setMensaje("Usuarios eliminados con exito");
+                }else{
+                    msj.setMensaje("Error al enviar los datos");
+                }
+            }catch(Exception e){
+                msj.setMensaje("Error al enviar los datos " + e);
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            msj.setMensaje("Error al conectarse con la base de datos");
+        }
+        return msj;
+    }
+    
     public static List<Empleado> empleadosPorRol(Integer idRol){
         List <Empleado> empleados = new ArrayList<>();
         SqlSession conexionBD = MyBatisUtil.getSession();
@@ -107,7 +132,6 @@ public class EmpleadoDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
         }
         return empleados;
     }
@@ -123,7 +147,6 @@ public class EmpleadoDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
         }
         return empleado;
     }
@@ -139,7 +162,6 @@ public class EmpleadoDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
         }
         return empleado;
     }
@@ -155,7 +177,6 @@ public class EmpleadoDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
         }
         return empleado;
     }
@@ -171,7 +192,6 @@ public class EmpleadoDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
         }
         return empleado;
     }
@@ -187,8 +207,8 @@ public class EmpleadoDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
         }
         return empleado;
     }
+    
 }

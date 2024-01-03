@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.EmpleadoDAO;
 import modelo.pojo.Empleado;
+import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
 
 @Path("empleado")
@@ -81,6 +82,26 @@ public class EmpleadoWS {
                 msj = EmpleadoDAO.eliminarEmpleado(empleado.getIdEmpleado());
             }else{
                 msj.setMensaje("El idEmpleado debe ser mayor a 0");
+            }
+        }catch(Exception e){
+            msj.setMensaje("Error al enviar los datos "+e);
+        }
+        return msj;
+    }
+    
+    @DELETE
+    @Path("eliminarEmpleadosEmpresa")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarEmpleadosEmpresa(String jsonParam){
+        Mensaje msj = new Mensaje();
+        try{
+            Gson gson = new Gson();
+            Empresa empresa = gson.fromJson(jsonParam, Empresa.class);
+            if(empresa.getIdEmpresa() != null && empresa.getIdEmpresa()> 0){
+                msj = EmpleadoDAO.eliminarEmpleadosEmpresa(empresa.getIdEmpresa());
+            }else{
+                msj.setMensaje("El idEmpresa debe ser mayor a 0");
             }
         }catch(Exception e){
             msj.setMensaje("Error al enviar los datos "+e);

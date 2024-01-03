@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="empresa">
     <insert id="agregarEmpresa" parameterType="modelo.pojo.Empresa">
-        INSERT INTO empresa(nombre, nombreComercial, logo,representante, correo, telefono, paginaWeb, RFC, estatus, idUbicacion) 
-        VALUES (#{nombre}, #{nombreComercial}, #{logo},#{representante}, #{correo}, #{telefono}, #{paginaWeb}, #{RFC}, #{estatus}, #{idUbicacion})
+        INSERT INTO empresa(nombre, nombreComercial,representante, correo, telefono, paginaWeb, logo, RFC, estatus, idUbicacion) 
+        VALUES (#{nombre}, #{nombreComercial},#{representante}, #{correo}, #{telefono}, #{paginaWeb}, #{RFC}, #{estatus}, #{idUbicacion})
     </insert>
     
     <select id="empresaPorRFC" resultType="modelo.pojo.Empresa" parameterType="String">
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <update id="editarEmpresa" parameterType="map">
-        UPDATE empresa SET nombre = #{nombre}, nombreComercial = #{nombreComercial}, logo = #{logo},representante = #{representante}, 
+        UPDATE empresa SET nombre = #{nombre}, nombreComercial = #{nombreComercial},representante = #{representante}, 
          correo = #{correo}, telefono = #{telefono}, paginaWeb = #{paginaWeb}, estatus = #{estatus}
          WHERE RFC = #{RFC} 
     </update>
@@ -38,5 +38,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="eliminarEmpresa" parameterType="String">
         DELETE FROM empresa WHERE RFC = #{RFC}
     </delete>
+    
+    <update id="guardarLogo" parameterType="map">
+        UPDATE empresa 
+        SET logo = #{logo} 
+        WHERE idEmpresa = #{idEmpresa} 
+    </update>
+    
+    <select id="obtenerLogo" parameterType="int" resultType="modelo.pojo.Empresa">
+        SELECT idEmpresa, nombre, nombreComercial, RFC, TO_BASE64(logo) as 'fotoBase64' 
+        FROM empresa 
+        WHERE idEmpresa =#{idEmpresa}        
+    </select>
     
 </mapper>

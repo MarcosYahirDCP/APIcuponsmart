@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
@@ -183,4 +184,56 @@ public class EmpresaDAO {
         }
         return empresa;
     }
+    
+    //------------------------------------- Registrar foto Empresa ----------------------------------------------------------\\ 
+    public static Mensaje registrarLogoEmpresa(int idEmpresa, byte[] logo){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        
+        LinkedHashMap<String, Object> parametros = new LinkedHashMap<>();
+        parametros.put("idEmpresa", idEmpresa);
+        parametros.put("logo", logo);
+        
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                int filasAfectadas = conexionBD.update("empresa.guardarLogo", parametros);
+                conexionBD.commit();
+
+                if (filasAfectadas > 0) {
+                    msj.setError(false);
+                    msj.setMensaje("Logo de la empresa guardada correctamente.");
+                } else {
+                    msj.setMensaje("Lo sentimos, hubo un error al intentar guardadar el logo, por favor intentelo más tarde.");
+                }
+            } catch (Exception e) {
+                msj.setMensaje("Error: " + e.getMessage());
+            } finally {
+                conexionBD.close();
+            }
+        } else {
+            msj.setMensaje("Error de conexión, por el momento no se úede registrar el logo de la empresa");
+        }
+        
+        return msj;
+    }
+    
+    //------------------------------------- Obtener Logo empresa ----------------------------------------------------------\\ 
+    public static Empresa obtenerLogoEmpresa(int idEmpresa){
+        Empresa empresa = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                empresa = conexionBD.selectOne("empresa.obtenerLogo", idEmpresa);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        }
+        return empresa;
+    
+    }
+
 }

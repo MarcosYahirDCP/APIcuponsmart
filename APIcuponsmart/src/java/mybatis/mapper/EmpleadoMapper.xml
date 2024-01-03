@@ -53,4 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="eliminarEmpleado" parameterType="int">
         DELETE FROM empleado WHERE idEmpleado = #{idEmpleado}
     </delete>
+    
+    <delete id="eliminarEmpleadosEmpresa" parameterType="int">
+        DELETE FROM empleado WHERE idEmpresa = #{idEmpresa}
+    </delete>
 </mapper>
