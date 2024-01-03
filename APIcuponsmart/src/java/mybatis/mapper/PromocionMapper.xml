@@ -36,8 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="promociones" resultType="modelo.pojo.Promocion">
-        SELECT p.nombre,p.descripcion,p.inicioPromocion,p.finPromocion,p.restriccion,t.tipo AS tipo,p.numeroCupones,p.estatus,e.nombreComercial AS empresa FROM promocion p
-        JOIN tipopromocion t ON t.idTipoPromocion = p.idTipoPromocion JOIN empresa e ON e.idEmpresa = p.idEmpresa
+        SELECT p.nombre,p.descripcion,p.inicioPromocion,p.finPromocion,p.restriccion,t.tipo AS tipo,p.numeroCupones,p.estatus,e.nombreComercial AS empresa, c.nombre as categoria FROM promocion p
+        JOIN tipopromocion t ON t.idTipoPromocion = p.idTipoPromocion JOIN empresa e ON e.idEmpresa = p.idEmpresa JOIN categoria c ON c.idCategoria = p.idCategoria
     </select>
     
     <select id="promocionDetalle" resultType="modelo.pojo.Promocion" parameterType="int">
@@ -66,5 +66,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="clientePromocion" parameterType="map" resultType="modelo.pojo.CanjeoCupon">
         SELECT * FROM canjeoCupon WHERE correo = #{correo} AND codigoPromocion = #{codigoPromocion}
+    </select>
+    
+    <select id="categorias" resultType="modelo.pojo.Categoria">
+        SELECT * FROM categoria; 
+    </select>
+    
+    <update id="guardarImagen" parameterType="map">
+        UPDATE promocion 
+        SET imagen = #{imagen} 
+        WHERE idPromocion = #{idPromocion} 
+    </update>
+    
+    <select id="obtenerImagen" parameterType="int" resultType="modelo.pojo.Promocion">
+        SELECT idPromocion, nombre, TO_BASE64(imagen) as 'imagenBase64' 
+        FROM promocion 
+        WHERE idPromocion =#{idPromocion}        
     </select>
 </mapper>

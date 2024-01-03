@@ -1,8 +1,10 @@
 package modelo;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import modelo.pojo.CanjeoCupon;
+import modelo.pojo.Categoria;
 import modelo.pojo.Cliente;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
@@ -361,4 +363,74 @@ public class PromocionDAO {
         }
         return msj;
     }
+    
+    public static List<Categoria> listaCategorias(){
+        List<Categoria> categorias = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                categorias = conexionBD.selectList("promocion.categorias");
+                conexionBD.commit();
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return categorias;
+    }
+    
+    //------------------------------------- Registrar foto Empresa ----------------------------------------------------------\\ 
+    public static Mensaje registrarImgPromo(int idPromocion, byte[] imagen){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        
+        LinkedHashMap<String, Object> parametros = new LinkedHashMap<>();
+        parametros.put("idPromocion", idPromocion);
+        parametros.put("imagen", imagen);
+        
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                int filasAfectadas = conexionBD.update("promocion.guardarImagen", parametros);
+                conexionBD.commit();
+
+                if (filasAfectadas > 0) {
+                    msj.setError(false);
+                    msj.setMensaje("Imagen de la promocion guardada correctamente.");
+                } else {
+                    msj.setMensaje("Lo sentimos, hubo un error al intentar guardadar la imagen, por favor intentelo más tarde.");
+                }
+            } catch (Exception e) {
+                msj.setMensaje("Error: " + e.getMessage());
+            } finally {
+                conexionBD.close();
+            }
+        } else {
+            msj.setMensaje("Error de conexión, por el momento no se úede registrar La imagen de la promoción");
+        }
+        
+        return msj;
+    }
+    
+    //------------------------------------- Obtener Logo empresa ----------------------------------------------------------\\ 
+    public static Promocion obtenerImgPromo(int idPromocion){
+        Promocion promocion = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if (conexionBD != null) {
+            try {
+                promocion = conexionBD.selectOne("promocion.obtenerImagen", idPromocion);
+                System.out.println(promocion);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                conexionBD.close();
+            }
+        }
+        return promocion;
+    
+    }
+    
 }

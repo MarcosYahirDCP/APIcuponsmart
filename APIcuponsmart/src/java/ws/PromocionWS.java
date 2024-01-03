@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
 import modelo.pojo.CanjeoCupon;
+import modelo.pojo.Categoria;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.PromocionSucursal;
@@ -202,5 +203,41 @@ public class PromocionWS {
             msj.setMensaje("Error: " + e);
         }
         return msj;
+    }
+    
+    @GET
+    @Path("categorias")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Categoria> listaCategorias(){
+        List<Categoria> categoria =  PromocionDAO.listaCategorias();
+        return categoria;
+    }
+    
+     //-------------------------------------------------------------Subir IMG promocion -------------------------------------------------------------\\
+    @PUT
+    @Path("subirImg/{idPromocion}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Mensaje subirImgPromo(@PathParam("idPromocion") Integer idPromocion, byte[] img){
+        Mensaje msj = new Mensaje();
+        if(idPromocion >0 && img!=null){
+            msj = PromocionDAO.registrarImgPromo(idPromocion, img);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+        return msj;
+    }
+    
+    //-------------------------------------------------------------Recuperar imagen de la promocion -------------------------------------------------------------\\
+    @GET
+    @Path("obtenerImg/{idPromocion}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Promocion obtenerImgPromo(@PathParam("idPromocion") Integer idPromocion){
+        Promocion promocion  = null;
+        if(idPromocion != null && idPromocion > 0){
+            promocion = PromocionDAO.obtenerImgPromo(idPromocion);
+        }else{
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }        
+        return promocion;
     }
 }
