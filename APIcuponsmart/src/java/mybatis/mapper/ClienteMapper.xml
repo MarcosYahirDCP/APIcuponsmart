@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <update id="editarCliente" parameterType="map">
-        UPDATE cliente SET nombre = #{nombre}, apellidoPaterno = #{apellidoPaterno}, apellidoMaterno = #{apellidoMaterno}, telefono = #{telefono}, idUbicacion =#{idUbicacion},contraseña = #{contraseña}, fechaNacimiento = #{fechaNacimiento}
+        UPDATE cliente SET nombre = #{nombre}, apellidoPaterno = #{apellidoPaterno}, apellidoMaterno = #{apellidoMaterno}, telefono = #{telefono},contraseña = #{contraseña}, fechaNacimiento = #{fechaNacimiento}
         WHERE idCliente = #{idCliente}
     </update>
 </mapper>
