@@ -7,61 +7,25 @@ public class Sucursal {
     private String encargado;
     private Integer idUbicacion;
     private Integer idEmpresa;
+    private String codigoPostal;
     private String nombreEmpresa;
     private String calle;
-    private String codigoPostal;
     private String numero;
+    private String colonia;
 
     public Sucursal() {
     }
 
-    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa,String calle, String codigoPostal, String numero ,String nombreEmpresa) {
+    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa, String colonia) {
         this.idSucursal = idSucursal;
         this.nombre = nombre;
         this.telefono = telefono;
         this.encargado = encargado;
         this.idUbicacion = idUbicacion;
         this.idEmpresa = idEmpresa;
-        this.calle = calle;
-        this.codigoPostal = codigoPostal;
-        this.nombreEmpresa = nombreEmpresa;
-        this.numero = numero;
+        this.colonia = colonia;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-    
-    public String getCalle() {
-        return calle;
-    }
-
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
-    public String getCodigoPostal() {
-        return codigoPostal;
-    }
-
-    public void setCodigoPostal(String codigoPostal) {
-        this.codigoPostal = codigoPostal;
-    }
-    
-    
-    public String getNombreEmpresa() {
-        return nombreEmpresa;
-    }
-
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
-    }
-    
-    
     public Integer getIdSucursal() {
         return idSucursal;
     }
@@ -109,6 +73,44 @@ public class Sucursal {
     public void setIdEmpresa(Integer idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
-    
-    
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
+
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }   
 }
