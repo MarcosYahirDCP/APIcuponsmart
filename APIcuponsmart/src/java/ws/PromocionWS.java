@@ -155,23 +155,13 @@ public class PromocionWS {
     @POST
     @Path("promocionFechaInicio")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Promocion> promocionFechaInicio(@FormParam("inicioPromocion")String inicioPromocion){
-        List<Promocion> promocion = null;
-        promocion = PromocionDAO.promocionFechaInicio(inicioPromocion);
-        return promocion;
-    }
-    
-    /*
-    @POST
-    @Path("promocionFechaInicio")
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public List<Promocion> promocionFechaInicio(String jsonParam){
         List<Promocion> promocion = null;
+        Gson gson = new Gson();
         try{
-            Gson gson = new Gson();
             Promocion promo = gson.fromJson(jsonParam, Promocion.class);
-            if (promocion != null){
+            if(promocion != null){
                 promocion = PromocionDAO.promocionFechaInicio(promo.getInicioPromocion());
             }else{
                 throw new WebApplicationException(Response.Status.BAD_REQUEST);
@@ -179,17 +169,31 @@ public class PromocionWS {
         }catch(Exception e){
             e.printStackTrace();
         }
-        /*
-        if(p != null && !inicioPromocion.isEmpty()){
-            promocion = PromocionDAO.promocionFechaInicio(inicioPromocion);
-        }else{
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
         
         return promocion;
     }
-*/
-    
+    /*
+    @POST
+    @Path("promocionPorSucursal")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje promocionPorSucursal(String jsonParam){
+        Mensaje msj = new Mensaje();
+        Gson gson = new Gson();
+        try{
+            PromocionSucursal promocion = gson.fromJson(jsonParam, PromocionSucursal.class);
+            if(promocion != null){
+                msj = PromocionDAO.promocionPorSucursal(promocion);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            msj.setMensaje("Error: " + e);
+        }
+        return msj;
+    }
+    */
+     
     @GET
     @Path("promocionPorId/{idPromocion}")
     @Consumes(MediaType.APPLICATION_JSON)
