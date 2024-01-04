@@ -207,6 +207,24 @@ public class PromocionDAO {
         return promocion;
     }
     
+    public static List<Promocion> listarPromocionesPorEmpresa(int idEmpresa){
+        List<Promocion> promocion = null;
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                promocion = conexionBD.selectList("promocion.promocionesPorEmpresa", idEmpresa);
+                conexionBD.commit();
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            
+        }
+        return promocion;
+    }
+    
     public static Mensaje promocionPorSucursal(PromocionSucursal promocion){
         Mensaje msj = new Mensaje();
         msj.setError(true);
@@ -328,7 +346,7 @@ public class PromocionDAO {
                         Cliente clienteExiste = conexionBD.selectOne("cliente.verificarCorreo", canjeo.getCorreo());
                         if(clienteExiste != null){
                             Boolean promocionSucursal = promocionEnSucursal(canjeo.getCodigoPromocion(), canjeo.getIdSucursal());
-                            if (promocionSucursal.equals(true)){
+                            //if (promocionSucursal.equals(true)){
                                 int numFilasAfectadas = conexionBD.insert("promocion.canjeoCupon", canjeo);
                                 conexionBD.commit();
                                 if(numFilasAfectadas > 0){
@@ -341,9 +359,9 @@ public class PromocionDAO {
                                 }else{
                                     msj.setMensaje("Error al canjear el cupon");
                                 }
-                            }else{
-                                msj.setMensaje("La promocion no se encuentra disponible en la sucursal");
-                            }
+                            //}else{
+                                //msj.setMensaje("La promocion no se encuentra disponible en la sucursal");
+                            //}
                         }else{
                             msj.setMensaje("El correo del cliente no se encuentra registrado");
                         }

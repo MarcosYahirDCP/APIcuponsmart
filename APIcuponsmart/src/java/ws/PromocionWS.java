@@ -165,6 +165,14 @@ public class PromocionWS {
         return promocion;
     }
     
+    @GET
+    @Path("promocionesPorEmpresa/{idEmpresa}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Promocion> listarPromocionesPorEmpresa(@PathParam("idEmpresa") Integer idEmpresa){
+        List<Promocion> promocion =  PromocionDAO.listarPromocionesPorEmpresa(idEmpresa);
+        return promocion;
+    }
+    
     @POST
     @Path("promocionPorSucursal")
     @Produces(MediaType.APPLICATION_JSON)
