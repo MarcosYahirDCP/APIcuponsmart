@@ -19,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.PromocionDAO;
 import modelo.pojo.CanjeoCupon;
 import modelo.pojo.Categoria;
+import modelo.pojo.Empresa;
 import modelo.pojo.Mensaje;
 import modelo.pojo.Promocion;
 import modelo.pojo.PromocionSucursal;
@@ -92,6 +93,26 @@ public class PromocionWS {
         return msj;
     }
     
+    @DELETE
+    @Path("eliminarPromocionesEmpresa")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarPromocionesEmpresa(String jsonParam){
+        Mensaje msj = new Mensaje();
+        try{
+            Gson gson = new Gson();
+            Empresa empresa = gson.fromJson(jsonParam, Empresa.class);
+            if (empresa != null){
+                msj = PromocionDAO.eliminarPromocionesEmpresa(empresa.getIdEmpresa());
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            msj.setMensaje("Error "+e);
+        }
+        return msj;
+    }
+    
     @GET
     @Path("promocionNombre/{nombre}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -131,18 +152,43 @@ public class PromocionWS {
         return promocion;
     }
     
-    @GET
-    @Path("promocionFechaInicio/{inicioPromocion}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public List<Promocion> promocionFechaInicio(@PathParam("inicioPromocion") String inicioPromocion){
+    @POST
+    @Path("promocionFechaInicio")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Promocion> promocionFechaInicio(@FormParam("inicioPromocion")String inicioPromocion){
         List<Promocion> promocion = null;
-        if(inicioPromocion != null && !inicioPromocion.isEmpty()){
+        promocion = PromocionDAO.promocionFechaInicio(inicioPromocion);
+        return promocion;
+    }
+    
+    /*
+    @POST
+    @Path("promocionFechaInicio")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<Promocion> promocionFechaInicio(String jsonParam){
+        List<Promocion> promocion = null;
+        try{
+            Gson gson = new Gson();
+            Promocion promo = gson.fromJson(jsonParam, Promocion.class);
+            if (promocion != null){
+                promocion = PromocionDAO.promocionFechaInicio(promo.getInicioPromocion());
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        /*
+        if(p != null && !inicioPromocion.isEmpty()){
             promocion = PromocionDAO.promocionFechaInicio(inicioPromocion);
         }else{
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
+        
         return promocion;
     }
+*/
     
     @GET
     @Path("promocionPorId/{idPromocion}")

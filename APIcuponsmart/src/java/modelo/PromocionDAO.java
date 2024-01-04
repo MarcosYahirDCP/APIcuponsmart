@@ -99,6 +99,31 @@ public class PromocionDAO {
         }
         return msj;
     }
+    
+    public static Mensaje eliminarPromocionesEmpresa(int idEmpresa){
+        Mensaje msj =  new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+                int numeroFilasAfectadas = conexionBD.delete("promocion.eliminarPromocionesEmpresa", idEmpresa);
+                conexionBD.commit();
+                if(numeroFilasAfectadas > 0){
+                    msj.setError(false);
+                    msj.setMensaje("Promociones eliminadas correctamente");
+                }else{
+                    msj.setMensaje("Error al enviar los datos");
+                }
+            }catch(Exception e){
+                msj.setMensaje("error "+e);
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            msj.setMensaje("Error en la conexión, intentelo más tarde");
+        }
+        return msj;
+    }
     public static Promocion promocionPorNombre(String nombre){
         Promocion promocion = null;
         SqlSession conexionBD = MyBatisUtil.getSession();
@@ -183,8 +208,6 @@ public class PromocionDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
-            
         }
         return promocion;
     }
@@ -285,6 +308,8 @@ public class PromocionDAO {
         return msj;
     }
     
+     
+    
     public static Mensaje verPromocionPorSucursal(PromocionSucursal promocion){
         Mensaje msj = new Mensaje();
         msj.setError(true);
@@ -343,6 +368,7 @@ public class PromocionDAO {
                  msj.setError(false);
                  cupones.setEstatus("Inactiva");
                  editarPromocion(cupones);
+                 eliminarPromocion(cupones.getIdPromocion());
              }
              else{
                  msj.setMensaje("Aun quedan " +cupones.getNumeroCupones() + " disponibles");

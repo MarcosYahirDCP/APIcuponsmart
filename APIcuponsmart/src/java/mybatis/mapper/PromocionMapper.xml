@@ -14,6 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         DELETE FROM promocion WHERE idPromocion = #{idPromocion}    
     </delete>
     
+    <delete id="eliminarPromocionesEmpresa" parameterType="int">
+        DELETE FROM promocion WHERE idEmpresa = #{idEmpresa}    
+    </delete>
+    
     <update id="editarPromocion" parameterType="map">
         UPDATE promocion SET nombre = #{nombre}, descripcion = #{descripcion}, inicioPromocion = #{inicioPromocion}, finPromocion = #{finPromocion}, restriccion = #{restriccion}, numeroCupones = #{numeroCupones},estatus = #{estatus},idTipoPromocion = #{idTipoPromocion},idCategoria = #{idCategoria},idEmpresa = #{idEmpresa} 
         WHERE idPromocion = #{idPromocion}
@@ -37,14 +41,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="promociones" resultType="modelo.pojo.Promocion">
         SELECT p.idPromocion, p.nombre,p.descripcion,p.inicioPromocion,p.finPromocion,p.restriccion, p.idTipoPromocion, t.tipo AS tipo, p.numeroCupones, p.idCategoria,p.estatus, p.codigoPromocion, p.idEmpresa, e.nombreComercial AS empresa, c.nombre as categoria FROM promocion p
-        JOIN tipopromocion t ON t.idTipoPromocion = p.idTipoPromocion JOIN empresa e ON e.idEmpresa = p.idEmpresa JOIN categoria c ON c.idCategoria = p.idCategoria
+        JOIN tipopromocion t ON t.idTipoPromocion = p.idTipoPromocion JOIN empresa e ON e.idEmpresa = p.idEmpresa JOIN categoria c ON c.idCategoria = p.idCategoria WHERE finPromocion > NOW()
     </select>
     
     <select id="promocionesPorEmpresa" resultType="modelo.pojo.Promocion" parameterType="int">
         SELECT p.idPromocion, p.nombre,p.descripcion,p.inicioPromocion,p.finPromocion,p.restriccion, p.idTipoPromocion, t.tipo AS tipo, p.numeroCupones, p.idCategoria,p.estatus, p.codigoPromocion, p.idEmpresa, e.nombreComercial AS empresa, c.nombre as categoria 
         FROM promocion p 
         JOIN tipopromocion t ON t.idTipoPromocion = p.idTipoPromocion JOIN empresa e ON e.idEmpresa = p.idEmpresa JOIN categoria c ON c.idCategoria = p.idCategoria 
-        WHERE p.idEmpresa = #{idEmpresa}
+        WHERE p.idEmpresa = #{idEmpresa} AND finPromocion > NOW()
     </select>
     
     <select id="promocionDetalle" resultType="modelo.pojo.Promocion" parameterType="int">
