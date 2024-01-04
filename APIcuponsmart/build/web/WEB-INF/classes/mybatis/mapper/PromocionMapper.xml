@@ -60,8 +60,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id="promocionPorSucursal" parameterType="modelo.pojo.PromocionSucursal">
-        INSERT INTO promocionsucursal VALUES (#{idPromocion},#{idSucursal})
+        INSERT INTO promocionsucursal VALUES (#{idPromocion},#{idSucursal},#{codigoPromocion})
     </insert>
+    
+    <delete id="eliminarPromocionPorSucursal" parameterType="modelo.pojo.PromocionSucursal">
+        DELETE FROM promocionsucursal WHERE idPromocion = #{idPromocion} AND idSucursal = #{idSucursal} AND codigoPromocion = #{codigoPromocion}
+    </delete>
+    
+    <select id="verPromocionPorSucursal" resultType="modelo.pojo.PromocionSucursal" parameterType="modelo.pojo.PromocionSucursal">
+        SELECT * FROM promocionsucursal WHERE idPromocion = #{idPromocion} AND idSucursal = #{idSucursal} AND codigoPromocion = #{codigoPromocion} 
+    </select>
     
     <select id="promocionEnSucursal" parameterType="map" resultType="modelo.pojo.PromocionSucursal">
         SELECT * FROM promocionSucursal WHERE codigoPromocion = #{codigoPromocion} AND idSucursal = #{idSucursal}

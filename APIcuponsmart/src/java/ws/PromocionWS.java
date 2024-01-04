@@ -193,6 +193,46 @@ public class PromocionWS {
         return msj;
     }
     
+    @DELETE
+    @Path("eliminarPromocionPorSucursal")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje eliminarPromocionPorSucursal(String jsonParam){
+        Mensaje msj = new Mensaje();
+        Gson gson = new Gson();
+        try{
+            PromocionSucursal promocion = gson.fromJson(jsonParam, PromocionSucursal.class);
+            if(promocion != null){
+                msj = PromocionDAO.eliminarPromocionPorSucursal(promocion);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            msj.setMensaje("Error: " + e);
+        }
+        return msj;
+    }
+    
+    @POST
+    @Path("verPromocionPorSucursal")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Mensaje verPromocionPorSucursal(String jsonParam){
+        Mensaje msj = new Mensaje();
+        Gson gson = new Gson();
+        try{
+            PromocionSucursal promocion = gson.fromJson(jsonParam, PromocionSucursal.class);
+            if(promocion != null){
+                msj = PromocionDAO.verPromocionPorSucursal(promocion);
+            }else{
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }catch(Exception e){
+            msj.setMensaje("Error: " + e);
+        }
+        return msj;
+    }
+    
     @POST
     @Path("canjeoCupon")
     @Produces(MediaType.APPLICATION_JSON)

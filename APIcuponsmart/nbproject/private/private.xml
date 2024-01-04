@@ -5,11 +5,7 @@
         <group>
             <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/ws/PromocionWS.java</file>
             <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/modelo/PromocionDAO.java</file>
-            <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/ws/EmpresaWS.java</file>
             <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/mybatis/mapper/PromocionMapper.xml</file>
-            <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/modelo/pojo/Promocion.java</file>
-            <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/mybatis/mapper/EmpresaMapper.xml</file>
-            <file>file:/D:/UV/7.Semestre/IntegracionDeSoluciones/Proyecto/APIcuponsmart/APIcuponsmart/src/java/modelo/EmpresaDAO.java</file>
         </group>
     </open-files>
 </project-private>

@@ -219,8 +219,6 @@ public class PromocionDAO {
             }finally{
                 conexionBD.close();
             }
-        }else{
-            
         }
         return promocion;
     }
@@ -241,6 +239,68 @@ public class PromocionDAO {
                        msj.setMensaje("Promocion registrada con exito");
                    }else{
                        msj.setMensaje("Error al enviar los datos");
+                   }
+               }else{
+                   msj.setMensaje("promocion y/o sucursal no existe");
+               }
+            }catch(Exception e){
+                msj.setMensaje("Error "+e);
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            msj.setMensaje("Error en la conexión, intentelo más tarde");
+        }
+        return msj;
+    }
+    
+    public static Mensaje eliminarPromocionPorSucursal(PromocionSucursal promocion){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+               Promocion promocionExiste = conexionBD.selectOne("promocion.verificarCodigo", promocion.getCodigoPromocion());
+               Sucursal sucursalExiste = conexionBD.selectOne("sucursal.sucursalPorId",promocion.getIdSucursal());
+               if(promocionExiste != null && sucursalExiste != null){
+                   int numFilasAfectadas = conexionBD.delete("eliminarPromocionPorSucursal", promocion);
+                   conexionBD.commit();
+                   if(numFilasAfectadas > 0){
+                       msj.setError(false);
+                       msj.setMensaje("Promocion Eliminada con exito");
+                   }else{
+                       msj.setMensaje("Error al eliminar");
+                   }
+               }else{
+                   msj.setMensaje("promocion y/o sucursal no existe");
+               }
+            }catch(Exception e){
+                msj.setMensaje("Error "+e);
+            }finally{
+                conexionBD.close();
+            }
+        }else{
+            msj.setMensaje("Error en la conexión, intentelo más tarde");
+        }
+        return msj;
+    }
+    
+    public static Mensaje verPromocionPorSucursal(PromocionSucursal promocion){
+        Mensaje msj = new Mensaje();
+        msj.setError(true);
+        SqlSession conexionBD = MyBatisUtil.getSession();
+        if(conexionBD != null){
+            try{
+               Promocion promocionExiste = conexionBD.selectOne("promocion.verificarCodigo", promocion.getCodigoPromocion());
+               Sucursal sucursalExiste = conexionBD.selectOne("sucursal.sucursalPorId",promocion.getIdSucursal());
+               if(promocionExiste != null && sucursalExiste != null){
+                   PromocionSucursal promo = conexionBD.selectOne("verPromocionPorSucursal", promocion);
+                   conexionBD.commit();
+                   if(promo != null){
+                       msj.setError(false);
+                       msj.setMensaje("La sucursal ya está asignada a esta promoción");
+                   }else{
+                       msj.setMensaje("La sucursal no está asignada a esta promoción");
                    }
                }else{
                    msj.setMensaje("promocion y/o sucursal no existe");
