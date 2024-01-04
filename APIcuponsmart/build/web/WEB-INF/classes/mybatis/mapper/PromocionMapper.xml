@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="promocion">
     <insert id="agregarPromocion" parameterType="modelo.pojo.Promocion">
-        INSERT INTO promocion(nombre,descripcion,imagen,inicioPromocion,finPromocion,restriccion,numeroCupones,codigoPromocion,estatus,idTipoPromocion,idCategoria,idEmpresa) 
-        VALUES(#{nombre},#{descripcion},#{imagen},#{inicioPromocion}, #{finPromocion},#{restriccion},#{numeroCupones},#{codigoPromocion},#{estatus},#{idTipoPromocion},#{idCategoria},#{idEmpresa})
+        INSERT INTO promocion(nombre,descripcion,inicioPromocion,finPromocion,restriccion,numeroCupones,codigoPromocion,estatus,idTipoPromocion,idCategoria,idEmpresa) 
+        VALUES(#{nombre},#{descripcion},#{inicioPromocion}, #{finPromocion},#{restriccion},#{numeroCupones},#{codigoPromocion},#{estatus},#{idTipoPromocion},#{idCategoria},#{idEmpresa})
     </insert>
     
     <delete id="eliminarPromocion" parameterType="int">
@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
     
     <update id="editarPromocion" parameterType="map">
-        UPDATE promocion SET nombre = #{nombre}, descripcion = #{descripcion}, imagen = #{imagen},inicioPromocion = #{inicioPromocion}, finPromocion = #{finPromocion}, restriccion = #{restriccion}, numeroCupones = #{numeroCupones},estatus = #{estatus},idTipoPromocion = #{idTipoPromocion},idCategoria = #{idCategoria},idEmpresa = #{idEmpresa}
+        UPDATE promocion SET nombre = #{nombre}, descripcion = #{descripcion}, inicioPromocion = #{inicioPromocion}, finPromocion = #{finPromocion}, restriccion = #{restriccion}, numeroCupones = #{numeroCupones},estatus = #{estatus},idTipoPromocion = #{idTipoPromocion},idCategoria = #{idCategoria},idEmpresa = #{idEmpresa} 
         WHERE idPromocion = #{idPromocion}
     </update>
     
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="promociones" resultType="modelo.pojo.Promocion">
-        SELECT p.nombre,p.descripcion,p.inicioPromocion,p.finPromocion,p.restriccion,t.tipo AS tipo,p.numeroCupones,p.estatus,e.nombreComercial AS empresa, c.nombre as categoria FROM promocion p
+        SELECT p.idPromocion, p.nombre,p.descripcion,p.inicioPromocion,p.finPromocion,p.restriccion, p.idTipoPromocion, t.tipo AS tipo, p.numeroCupones, p.idCategoria,p.estatus, p.codigoPromocion, p.idEmpresa, e.nombreComercial AS empresa, c.nombre as categoria FROM promocion p
         JOIN tipopromocion t ON t.idTipoPromocion = p.idTipoPromocion JOIN empresa e ON e.idEmpresa = p.idEmpresa JOIN categoria c ON c.idCategoria = p.idCategoria
     </select>
     
